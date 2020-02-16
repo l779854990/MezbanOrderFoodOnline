@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="433173a4b6ee4917b667db1ece57e9ff" Name="Diagram1">
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.AspNetRole" Width="1.5" PointX="3.75" PointY="54.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.AspNetUserClaim" Width="1.5" PointX="8.25" PointY="53.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.AspNetUserLogin" Width="1.5" PointX="8.25" PointY="56.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.AspNetUser" Width="1.5" PointX="6" PointY="52.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Category" Width="1.5" PointX="3" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.City" Width="1.5" PointX="6.75" PointY="64.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Comment" Width="1.5" PointX="5.25" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Contentdefinition" Width="1.5" PointX="0.75" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.ContentEntry" Width="1.5" PointX="3" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Country" Width="1.5" PointX="4.5" PointY="64.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.District" Width="1.5" PointX="9" PointY="64.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Favory" Width="1.5" PointX="5.25" PointY="44.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Language" Width="1.5" PointX="0.75" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Menu" Width="1.5" PointX="5.25" PointY="35.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.MenuItem" Width="1.5" PointX="7.5" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Option" Width="1.5" PointX="9.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Order" Width="1.5" PointX="8.25" PointY="43.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.PaymentProvider" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Promotion" Width="1.5" PointX="3" PointY="35.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.PromotionLineItem" Width="1.5" PointX="8.25" PointY="40.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Rating" Width="1.5" PointX="5.25" PointY="48.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.RestaurantArea" Width="1.5" PointX="11.25" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.RestaurantCategory" Width="1.5" PointX="5.25" PointY="32.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Restaurant" Width="1.5" PointX="3" PointY="40.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.RestaurantWorkTime" Width="1.5" PointX="5.25" PointY="60.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Tax" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.TypeOfCuisine" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.UserRestaurant" Width="1.5" PointX="8.25" PointY="37.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Voucher" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.VoucherLineItem" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.Zone" Width="1.5" PointX="9" PointY="49.625" IsExpanded="true" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Favories_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Order_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Rating_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_User_UserRestaurant" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Category_RestaurantCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Contentdifinition_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_City_District" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Country_City" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Restaurant_Comment" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Contendifiniton_MenuItem" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_ContentDefinition_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Contentdifition_Option" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_ContentEntry_ContentDefinition" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Promotion_Contentdefinition" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Restaurant_ContentdifitionId" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_ContentEntry_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_District_RestaurantArea" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_District_Zone" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Favories_Restaurants" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Menu_MenuItem" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Restaurant_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_MenuItem_Option" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Order_Restaurants" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_PromotionLineItem_Promotion" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_PromotionLineItem_Restaurants" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Rating_Restaurants" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Restaurant_RestaurantArea" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Zone_RestaurantArea" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Restauran_RestaurantCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Restaurant_UserRestaurant" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_RestaurantWorkTime_Restaurants" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.FK_Voucher_VoucherLineItem" ManuallyRouted="false" />
+        <AssociationConnector Association="MezbanAirKitchenModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.EmailTemplate" Width="1.5" PointX="5.375" PointY="7.75" />
+        <EntityTypeShape EntityType="MezbanAirKitchenModel.MultiMedia" Width="1.5" PointX="5.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
