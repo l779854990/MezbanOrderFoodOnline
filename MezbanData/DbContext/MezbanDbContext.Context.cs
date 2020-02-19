@@ -36,13 +36,16 @@ namespace MezbanData.DbContext
         public virtual DbSet<ContentEntry> ContentEntries { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<District> Districts { get; set; }
+        public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
         public virtual DbSet<Favory> Favories { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<MenuItem> MenuItems { get; set; }
+        public virtual DbSet<MultiMedia> MultiMedias { get; set; }
         public virtual DbSet<Option> Options { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<PaymentProvider> PaymentProviders { get; set; }
+        public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<PromotionLineItem> PromotionLineItems { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
@@ -56,7 +59,5 @@ namespace MezbanData.DbContext
         public virtual DbSet<Voucher> Vouchers { get; set; }
         public virtual DbSet<VoucherLineItem> VoucherLineItems { get; set; }
         public virtual DbSet<Zone> Zones { get; set; }
-        public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
-        public virtual DbSet<MultiMedia> MultiMedias { get; set; }
     }
 }

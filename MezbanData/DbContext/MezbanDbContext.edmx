@@ -48,16 +48,13 @@
           <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
-          <Property Name="PhoneNumber" Type="nvarchar(max)" />
           <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
           <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
           <Property Name="LockoutEndDateUtc" Type="datetime" />
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="256" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="256" />
-          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -283,6 +280,24 @@
           <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="SortOrder" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Persons">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SeqId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="5" />
+          <Property Name="FisrtName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="CreateDate" Type="nchar" MaxLength="10" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="ModifiedDate" Type="nchar" MaxLength="10" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="PhotoUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="Promotion">
           <Key>
             <PropertyRef Name="PromotionId" />
@@ -451,6 +466,18 @@
           <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <Association Name="FK_AspNetUsers_Persons">
+          <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Category_RestaurantCategory">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="RestaurantCategory" Type="Self.RestaurantCategory" Multiplicity="*" />
@@ -913,6 +940,7 @@
           <EntitySet Name="Option" EntityType="Self.Option" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentProvider" EntityType="Self.PaymentProvider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persons" EntityType="Self.Persons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Promotion" EntityType="Self.Promotion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionLineItem" EntityType="Self.PromotionLineItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
@@ -926,6 +954,10 @@
           <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VoucherLineItem" EntityType="Self.VoucherLineItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zone" EntityType="Self.Zone" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetUsers_Persons" Association="Self.FK_AspNetUsers_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Category_RestaurantCategory" Association="Self.FK_Category_RestaurantCategory">
             <End Role="Category" EntitySet="Category" />
             <End Role="RestaurantCategory" EntitySet="RestaurantCategory" />
@@ -1075,23 +1107,203 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MezbanAirKitchenModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MezbanAirKitchenEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="MezbanAirKitchenModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="MezbanAirKitchenModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="MezbanAirKitchenModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="MezbanAirKitchenModel.AspNetUser" />
+          <EntitySet Name="Categories" EntityType="MezbanAirKitchenModel.Category" />
+          <EntitySet Name="Cities" EntityType="MezbanAirKitchenModel.City" />
+          <EntitySet Name="Comments" EntityType="MezbanAirKitchenModel.Comment" />
+          <EntitySet Name="Contentdefinitions" EntityType="MezbanAirKitchenModel.Contentdefinition" />
+          <EntitySet Name="ContentEntries" EntityType="MezbanAirKitchenModel.ContentEntry" />
+          <EntitySet Name="Countries" EntityType="MezbanAirKitchenModel.Country" />
+          <EntitySet Name="Districts" EntityType="MezbanAirKitchenModel.District" />
+          <EntitySet Name="EmailTemplates" EntityType="MezbanAirKitchenModel.EmailTemplate" />
+          <EntitySet Name="Favories" EntityType="MezbanAirKitchenModel.Favory" />
+          <EntitySet Name="Languages" EntityType="MezbanAirKitchenModel.Language" />
+          <EntitySet Name="Menus" EntityType="MezbanAirKitchenModel.Menu" />
+          <EntitySet Name="MenuItems" EntityType="MezbanAirKitchenModel.MenuItem" />
+          <EntitySet Name="MultiMedias" EntityType="MezbanAirKitchenModel.MultiMedia" />
+          <EntitySet Name="Options" EntityType="MezbanAirKitchenModel.Option" />
+          <EntitySet Name="Orders" EntityType="MezbanAirKitchenModel.Order" />
+          <EntitySet Name="PaymentProviders" EntityType="MezbanAirKitchenModel.PaymentProvider" />
+          <EntitySet Name="Persons" EntityType="MezbanAirKitchenModel.Person" />
+          <EntitySet Name="Promotions" EntityType="MezbanAirKitchenModel.Promotion" />
+          <EntitySet Name="PromotionLineItems" EntityType="MezbanAirKitchenModel.PromotionLineItem" />
+          <EntitySet Name="Ratings" EntityType="MezbanAirKitchenModel.Rating" />
+          <EntitySet Name="RestaurantAreas" EntityType="MezbanAirKitchenModel.RestaurantArea" />
+          <EntitySet Name="RestaurantCategories" EntityType="MezbanAirKitchenModel.RestaurantCategory" />
+          <EntitySet Name="Restaurants" EntityType="MezbanAirKitchenModel.Restaurant" />
+          <EntitySet Name="RestaurantWorkTimes" EntityType="MezbanAirKitchenModel.RestaurantWorkTime" />
+          <EntitySet Name="Taxes" EntityType="MezbanAirKitchenModel.Tax" />
+          <EntitySet Name="TypeOfCuisines" EntityType="MezbanAirKitchenModel.TypeOfCuisine" />
+          <EntitySet Name="UserRestaurants" EntityType="MezbanAirKitchenModel.UserRestaurant" />
+          <EntitySet Name="Vouchers" EntityType="MezbanAirKitchenModel.Voucher" />
+          <EntitySet Name="VoucherLineItems" EntityType="MezbanAirKitchenModel.VoucherLineItem" />
+          <EntitySet Name="Zones" EntityType="MezbanAirKitchenModel.Zone" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="MezbanAirKitchenModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="MezbanAirKitchenModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_Persons" Association="MezbanAirKitchenModel.FK_AspNetUsers_Persons">
+            <End Role="Person" EntitySet="Persons" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favories_AspNetUsers" Association="MezbanAirKitchenModel.FK_Favories_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Favory" EntitySet="Favories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_AspNetUsers" Association="MezbanAirKitchenModel.FK_Order_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_AspNetUsers" Association="MezbanAirKitchenModel.FK_Rating_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserRestaurant" Association="MezbanAirKitchenModel.FK_User_UserRestaurant">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="UserRestaurant" EntitySet="UserRestaurants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_RestaurantCategory" Association="MezbanAirKitchenModel.FK_Category_RestaurantCategory">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="RestaurantCategory" EntitySet="RestaurantCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contentdifinition_Category" Association="MezbanAirKitchenModel.FK_Contentdifinition_Category">
+            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_District" Association="MezbanAirKitchenModel.FK_City_District">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="District" EntitySet="Districts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Country_City" Association="MezbanAirKitchenModel.FK_Country_City">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restaurant_Comment" Association="MezbanAirKitchenModel.FK_Restaurant_Comment">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contendifiniton_MenuItem" Association="MezbanAirKitchenModel.FK_Contendifiniton_MenuItem">
+            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
+            <End Role="MenuItem" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentDefinition_Menu" Association="MezbanAirKitchenModel.FK_ContentDefinition_Menu">
+            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
+            <End Role="Menu" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contentdifition_Option" Association="MezbanAirKitchenModel.FK_Contentdifition_Option">
+            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
+            <End Role="Option" EntitySet="Options" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentEntry_ContentDefinition" Association="MezbanAirKitchenModel.FK_ContentEntry_ContentDefinition">
+            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
+            <End Role="ContentEntry" EntitySet="ContentEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Promotion_Contentdefinition" Association="MezbanAirKitchenModel.FK_Promotion_Contentdefinition">
+            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
+            <End Role="Promotion" EntitySet="Promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restaurant_ContentdifitionId" Association="MezbanAirKitchenModel.FK_Restaurant_ContentdifitionId">
+            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
+            <End Role="Restaurant" EntitySet="Restaurants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentEntry_Language" Association="MezbanAirKitchenModel.FK_ContentEntry_Language">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="ContentEntry" EntitySet="ContentEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_RestaurantArea" Association="MezbanAirKitchenModel.FK_District_RestaurantArea">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="RestaurantArea" EntitySet="RestaurantAreas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_Zone" Association="MezbanAirKitchenModel.FK_District_Zone">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Zone" EntitySet="Zones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favories_Restaurants" Association="MezbanAirKitchenModel.FK_Favories_Restaurants">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Favory" EntitySet="Favories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_MenuItem" Association="MezbanAirKitchenModel.FK_Menu_MenuItem">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="MenuItem" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restaurant_Menu" Association="MezbanAirKitchenModel.FK_Restaurant_Menu">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Menu" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuItem_Option" Association="MezbanAirKitchenModel.FK_MenuItem_Option">
+            <End Role="MenuItem" EntitySet="MenuItems" />
+            <End Role="Option" EntitySet="Options" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Restaurants" Association="MezbanAirKitchenModel.FK_Order_Restaurants">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionLineItem_Promotion" Association="MezbanAirKitchenModel.FK_PromotionLineItem_Promotion">
+            <End Role="Promotion" EntitySet="Promotions" />
+            <End Role="PromotionLineItem" EntitySet="PromotionLineItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionLineItem_Restaurants" Association="MezbanAirKitchenModel.FK_PromotionLineItem_Restaurants">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="PromotionLineItem" EntitySet="PromotionLineItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Restaurants" Association="MezbanAirKitchenModel.FK_Rating_Restaurants">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restaurant_RestaurantArea" Association="MezbanAirKitchenModel.FK_Restaurant_RestaurantArea">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="RestaurantArea" EntitySet="RestaurantAreas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zone_RestaurantArea" Association="MezbanAirKitchenModel.FK_Zone_RestaurantArea">
+            <End Role="Zone" EntitySet="Zones" />
+            <End Role="RestaurantArea" EntitySet="RestaurantAreas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restauran_RestaurantCategory" Association="MezbanAirKitchenModel.FK_Restauran_RestaurantCategory">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="RestaurantCategory" EntitySet="RestaurantCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restaurant_UserRestaurant" Association="MezbanAirKitchenModel.FK_Restaurant_UserRestaurant">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="UserRestaurant" EntitySet="UserRestaurants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RestaurantWorkTime_Restaurants" Association="MezbanAirKitchenModel.FK_RestaurantWorkTime_Restaurants">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="RestaurantWorkTime" EntitySet="RestaurantWorkTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voucher_VoucherLineItem" Association="MezbanAirKitchenModel.FK_Voucher_VoucherLineItem">
+            <End Role="Voucher" EntitySet="Vouchers" />
+            <End Role="VoucherLineItem" EntitySet="VoucherLineItems" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="MezbanAirKitchenModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="MezbanAirKitchenModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser" Relationship="MezbanAirKitchenModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserLogin">
           <Key>
@@ -1099,37 +1311,35 @@
             <PropertyRef Name="ProviderKey" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="MezbanAirKitchenModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="Favories" Relationship="Self.FK_Favories_AspNetUsers" FromRole="AspNetUsers" ToRole="Favories" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_AspNetUsers" FromRole="AspNetUsers" ToRole="Order" />
-          <NavigationProperty Name="Ratings" Relationship="Self.FK_Rating_AspNetUsers" FromRole="AspNetUsers" ToRole="Rating" />
-          <NavigationProperty Name="UserRestaurants" Relationship="Self.FK_User_UserRestaurant" FromRole="AspNetUsers" ToRole="UserRestaurant" />
-          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="MezbanAirKitchenModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="MezbanAirKitchenModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="Person" Relationship="MezbanAirKitchenModel.FK_AspNetUsers_Persons" FromRole="AspNetUser" ToRole="Person" />
+          <NavigationProperty Name="Favories" Relationship="MezbanAirKitchenModel.FK_Favories_AspNetUsers" FromRole="AspNetUser" ToRole="Favory" />
+          <NavigationProperty Name="Orders" Relationship="MezbanAirKitchenModel.FK_Order_AspNetUsers" FromRole="AspNetUser" ToRole="Order" />
+          <NavigationProperty Name="Ratings" Relationship="MezbanAirKitchenModel.FK_Rating_AspNetUsers" FromRole="AspNetUser" ToRole="Rating" />
+          <NavigationProperty Name="UserRestaurants" Relationship="MezbanAirKitchenModel.FK_User_UserRestaurant" FromRole="AspNetUser" ToRole="UserRestaurant" />
+          <NavigationProperty Name="AspNetRoles" Relationship="MezbanAirKitchenModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -1141,12 +1351,12 @@
           <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="SortOder" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="RestaurantCategories" Relationship="Self.FK_Category_RestaurantCategory" FromRole="Category" ToRole="RestaurantCategory" />
-          <NavigationProperty Name="Contentdefinition" Relationship="Self.FK_Contentdifinition_Category" FromRole="Category" ToRole="Contentdefinition" />
+          <NavigationProperty Name="RestaurantCategories" Relationship="MezbanAirKitchenModel.FK_Category_RestaurantCategory" FromRole="Category" ToRole="RestaurantCategory" />
+          <NavigationProperty Name="Contentdefinition" Relationship="MezbanAirKitchenModel.FK_Contentdifinition_Category" FromRole="Category" ToRole="Contentdefinition" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -1158,41 +1368,41 @@
           <Property Name="CitiCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Districts" Relationship="Self.FK_City_District" FromRole="City" ToRole="District" />
-          <NavigationProperty Name="Country" Relationship="Self.FK_Country_City" FromRole="City" ToRole="Country" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Districts" Relationship="MezbanAirKitchenModel.FK_City_District" FromRole="City" ToRole="District" />
+          <NavigationProperty Name="Country" Relationship="MezbanAirKitchenModel.FK_Country_City" FromRole="City" ToRole="Country" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentId" />
           </Key>
           <Property Name="CommentId" Type="Guid" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="RestaurantId" Type="Guid" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Restaurant_Comment" FromRole="Comment" ToRole="Restaurants" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Restaurant" Relationship="MezbanAirKitchenModel.FK_Restaurant_Comment" FromRole="Comment" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="Contentdefinition">
           <Key>
             <PropertyRef Name="ContentdefinitionId" />
           </Key>
           <Property Name="ContentdefinitionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Categories" Relationship="Self.FK_Contentdifinition_Category" FromRole="Contentdefinition" ToRole="Category" />
-          <NavigationProperty Name="MenuItems" Relationship="Self.FK_Contendifiniton_MenuItem" FromRole="Contentdefinition" ToRole="MenuItem" />
-          <NavigationProperty Name="Menus" Relationship="Self.FK_ContentDefinition_Menu" FromRole="Contentdefinition" ToRole="Menu" />
-          <NavigationProperty Name="Options" Relationship="Self.FK_Contentdifition_Option" FromRole="Contentdefinition" ToRole="Option" />
-          <NavigationProperty Name="ContentEntries" Relationship="Self.FK_ContentEntry_ContentDefinition" FromRole="Contentdefinition" ToRole="ContentEntry" />
-          <NavigationProperty Name="Promotions" Relationship="Self.FK_Promotion_Contentdefinition" FromRole="Contentdefinition" ToRole="Promotion" />
-          <NavigationProperty Name="Restaurants" Relationship="Self.FK_Restaurant_ContentdifitionId" FromRole="Contentdefinition" ToRole="Restaurants" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Categories" Relationship="MezbanAirKitchenModel.FK_Contentdifinition_Category" FromRole="Contentdefinition" ToRole="Category" />
+          <NavigationProperty Name="MenuItems" Relationship="MezbanAirKitchenModel.FK_Contendifiniton_MenuItem" FromRole="Contentdefinition" ToRole="MenuItem" />
+          <NavigationProperty Name="Menus" Relationship="MezbanAirKitchenModel.FK_ContentDefinition_Menu" FromRole="Contentdefinition" ToRole="Menu" />
+          <NavigationProperty Name="Options" Relationship="MezbanAirKitchenModel.FK_Contentdifition_Option" FromRole="Contentdefinition" ToRole="Option" />
+          <NavigationProperty Name="ContentEntries" Relationship="MezbanAirKitchenModel.FK_ContentEntry_ContentDefinition" FromRole="Contentdefinition" ToRole="ContentEntry" />
+          <NavigationProperty Name="Promotions" Relationship="MezbanAirKitchenModel.FK_Promotion_Contentdefinition" FromRole="Contentdefinition" ToRole="Promotion" />
+          <NavigationProperty Name="Restaurants" Relationship="MezbanAirKitchenModel.FK_Restaurant_ContentdifitionId" FromRole="Contentdefinition" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="ContentEntry">
           <Key>
@@ -1200,25 +1410,25 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Token" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LanguageId" Type="Int32" Nullable="false" />
           <Property Name="ContendefinitionId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Contentdefinition" Relationship="Self.FK_ContentEntry_ContentDefinition" FromRole="ContentEntry" ToRole="Contentdefinition" />
-          <NavigationProperty Name="Language" Relationship="Self.FK_ContentEntry_Language" FromRole="ContentEntry" ToRole="Language" />
+          <NavigationProperty Name="Contentdefinition" Relationship="MezbanAirKitchenModel.FK_ContentEntry_ContentDefinition" FromRole="ContentEntry" ToRole="Contentdefinition" />
+          <NavigationProperty Name="Language" Relationship="MezbanAirKitchenModel.FK_ContentEntry_Language" FromRole="ContentEntry" ToRole="Language" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="CountryId" />
           </Key>
           <Property Name="CountryId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Cities" Relationship="Self.FK_Country_City" FromRole="Country" ToRole="City" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cities" Relationship="MezbanAirKitchenModel.FK_Country_City" FromRole="Country" ToRole="City" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -1226,16 +1436,30 @@
           </Key>
           <Property Name="DistrictId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CityId" Type="Int64" Nullable="false" />
-          <Property Name="DistrictName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DistrictCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DistrictName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DistrictCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="City" Relationship="Self.FK_City_District" FromRole="District" ToRole="City" />
-          <NavigationProperty Name="RestaurantAreas" Relationship="Self.FK_District_RestaurantArea" FromRole="District" ToRole="RestaurantArea" />
-          <NavigationProperty Name="Zones" Relationship="Self.FK_District_Zone" FromRole="District" ToRole="Zone" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="MezbanAirKitchenModel.FK_City_District" FromRole="District" ToRole="City" />
+          <NavigationProperty Name="RestaurantAreas" Relationship="MezbanAirKitchenModel.FK_District_RestaurantArea" FromRole="District" ToRole="RestaurantArea" />
+          <NavigationProperty Name="Zones" Relationship="MezbanAirKitchenModel.FK_District_Zone" FromRole="District" ToRole="Zone" />
+        </EntityType>
+        <EntityType Name="EmailTemplate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MailFrom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MailTo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Favory">
           <Key>
@@ -1243,14 +1467,14 @@
           </Key>
           <Property Name="FavorieId" Type="Int64" Nullable="false" />
           <Property Name="RestaurantId" Type="Guid" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Favories_AspNetUsers" FromRole="Favories" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Favories_Restaurants" FromRole="Favories" ToRole="Restaurants" />
+          <NavigationProperty Name="AspNetUser" Relationship="MezbanAirKitchenModel.FK_Favories_AspNetUsers" FromRole="Favory" ToRole="AspNetUser" />
+          <NavigationProperty Name="Restaurant" Relationship="MezbanAirKitchenModel.FK_Favories_Restaurants" FromRole="Favory" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -1259,7 +1483,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ContentEntries" Relationship="Self.FK_ContentEntry_Language" FromRole="Language" ToRole="ContentEntry" />
+          <NavigationProperty Name="ContentEntries" Relationship="MezbanAirKitchenModel.FK_ContentEntry_Language" FromRole="Language" ToRole="ContentEntry" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -1269,19 +1493,19 @@
           <Property Name="ContentdefinitionId" Type="Int64" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="10" Scale="0" />
           <Property Name="RestaurantId" Type="Guid" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="SortOrder" Type="Int32" />
           <Property Name="Rate" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="SeqId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Contentdefinition" Relationship="Self.FK_ContentDefinition_Menu" FromRole="Menu" ToRole="Contentdefinition" />
-          <NavigationProperty Name="MenuItems" Relationship="Self.FK_Menu_MenuItem" FromRole="Menu" ToRole="MenuItem" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Restaurant_Menu" FromRole="Menu" ToRole="Restaurants" />
+          <NavigationProperty Name="Contentdefinition" Relationship="MezbanAirKitchenModel.FK_ContentDefinition_Menu" FromRole="Menu" ToRole="Contentdefinition" />
+          <NavigationProperty Name="MenuItems" Relationship="MezbanAirKitchenModel.FK_Menu_MenuItem" FromRole="Menu" ToRole="MenuItem" />
+          <NavigationProperty Name="Restaurant" Relationship="MezbanAirKitchenModel.FK_Restaurant_Menu" FromRole="Menu" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="MenuItem">
           <Key>
@@ -1295,14 +1519,28 @@
           <Property Name="HasCombo" Type="Boolean" />
           <Property Name="SortOder" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="MenuId" Type="Guid" Nullable="false" />
           <Property Name="SeqId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Contentdefinition" Relationship="Self.FK_Contendifiniton_MenuItem" FromRole="MenuItem" ToRole="Contentdefinition" />
-          <NavigationProperty Name="Menu" Relationship="Self.FK_Menu_MenuItem" FromRole="MenuItem" ToRole="Menu" />
-          <NavigationProperty Name="Options" Relationship="Self.FK_MenuItem_Option" FromRole="MenuItem" ToRole="Option" />
+          <NavigationProperty Name="Contentdefinition" Relationship="MezbanAirKitchenModel.FK_Contendifiniton_MenuItem" FromRole="MenuItem" ToRole="Contentdefinition" />
+          <NavigationProperty Name="Menu" Relationship="MezbanAirKitchenModel.FK_Menu_MenuItem" FromRole="MenuItem" ToRole="Menu" />
+          <NavigationProperty Name="Options" Relationship="MezbanAirKitchenModel.FK_MenuItem_Option" FromRole="MenuItem" ToRole="Option" />
+        </EntityType>
+        <EntityType Name="MultiMedia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FileUrl" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MasterId" Type="Guid" Nullable="false" />
+          <Property Name="Owned" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileSize" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Option">
           <Key>
@@ -1314,11 +1552,11 @@
           <Property Name="MenuItemId" Type="Guid" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Contentdefinition" Relationship="Self.FK_Contentdifition_Option" FromRole="Option" ToRole="Contentdefinition" />
-          <NavigationProperty Name="MenuItem" Relationship="Self.FK_MenuItem_Option" FromRole="Option" ToRole="MenuItem" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contentdefinition" Relationship="MezbanAirKitchenModel.FK_Contentdifition_Option" FromRole="Option" ToRole="Contentdefinition" />
+          <NavigationProperty Name="MenuItem" Relationship="MezbanAirKitchenModel.FK_MenuItem_Option" FromRole="Option" ToRole="MenuItem" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -1326,8 +1564,8 @@
           </Key>
           <Property Name="OderId" Type="Guid" Nullable="false" />
           <Property Name="RestaurantId" Type="Guid" Nullable="false" />
-          <Property Name="RestaurantName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RestaurantName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="OderDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Status" Type="Int32" />
@@ -1341,8 +1579,8 @@
           <Property Name="ReasonCancel" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ChargeFee" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="DeliveryCost" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Order_AspNetUsers" FromRole="Order" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Order_Restaurants" FromRole="Order" ToRole="Restaurants" />
+          <NavigationProperty Name="AspNetUser" Relationship="MezbanAirKitchenModel.FK_Order_AspNetUsers" FromRole="Order" ToRole="AspNetUser" />
+          <NavigationProperty Name="Restaurant" Relationship="MezbanAirKitchenModel.FK_Order_Restaurants" FromRole="Order" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="PaymentProvider">
           <Key>
@@ -1352,31 +1590,50 @@
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Setting" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="SortOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="SeqId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="FisrtName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="CreateDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PhotoUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="MezbanAirKitchenModel.FK_AspNetUsers_Persons" FromRole="Person" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Promotion">
           <Key>
             <PropertyRef Name="PromotionId" />
           </Key>
           <Property Name="PromotionId" Type="Guid" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ContentdifinitionId" Type="Int64" Nullable="false" />
           <Property Name="StartDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="EndDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Value" Type="Int32" />
           <Property Name="MinOder" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Status" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Contentdefinition" Relationship="Self.FK_Promotion_Contentdefinition" FromRole="Promotion" ToRole="Contentdefinition" />
-          <NavigationProperty Name="PromotionLineItems" Relationship="Self.FK_PromotionLineItem_Promotion" FromRole="Promotion" ToRole="PromotionLineItem" />
+          <NavigationProperty Name="Contentdefinition" Relationship="MezbanAirKitchenModel.FK_Promotion_Contentdefinition" FromRole="Promotion" ToRole="Contentdefinition" />
+          <NavigationProperty Name="PromotionLineItems" Relationship="MezbanAirKitchenModel.FK_PromotionLineItem_Promotion" FromRole="Promotion" ToRole="PromotionLineItem" />
         </EntityType>
         <EntityType Name="PromotionLineItem">
           <Key>
@@ -1387,23 +1644,23 @@
           <Property Name="RestauranId" Type="Guid" Nullable="false" />
           <Property Name="Code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Promotion" Relationship="Self.FK_PromotionLineItem_Promotion" FromRole="PromotionLineItem" ToRole="Promotion" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_PromotionLineItem_Restaurants" FromRole="PromotionLineItem" ToRole="Restaurants" />
+          <NavigationProperty Name="Promotion" Relationship="MezbanAirKitchenModel.FK_PromotionLineItem_Promotion" FromRole="PromotionLineItem" ToRole="Promotion" />
+          <NavigationProperty Name="Restaurant" Relationship="MezbanAirKitchenModel.FK_PromotionLineItem_Restaurants" FromRole="PromotionLineItem" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
             <PropertyRef Name="RatingId" />
           </Key>
           <Property Name="RatingId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="RestaurantId" Type="Guid" Nullable="false" />
           <Property Name="Quality" Type="Double" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Rating_AspNetUsers" FromRole="Rating" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Rating_Restaurants" FromRole="Rating" ToRole="Restaurants" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="MezbanAirKitchenModel.FK_Rating_AspNetUsers" FromRole="Rating" ToRole="AspNetUser" />
+          <NavigationProperty Name="Restaurant" Relationship="MezbanAirKitchenModel.FK_Rating_Restaurants" FromRole="Rating" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="RestaurantArea">
           <Key>
@@ -1413,9 +1670,9 @@
           <Property Name="RestaurantId" Type="Guid" Nullable="false" />
           <Property Name="ZoneId" Type="Int64" Nullable="false" />
           <Property Name="DistrictId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="District" Relationship="Self.FK_District_RestaurantArea" FromRole="RestaurantArea" ToRole="District" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Restaurant_RestaurantArea" FromRole="RestaurantArea" ToRole="Restaurants" />
-          <NavigationProperty Name="Zone" Relationship="Self.FK_Zone_RestaurantArea" FromRole="RestaurantArea" ToRole="Zone" />
+          <NavigationProperty Name="District" Relationship="MezbanAirKitchenModel.FK_District_RestaurantArea" FromRole="RestaurantArea" ToRole="District" />
+          <NavigationProperty Name="Restaurant" Relationship="MezbanAirKitchenModel.FK_Restaurant_RestaurantArea" FromRole="RestaurantArea" ToRole="Restaurant" />
+          <NavigationProperty Name="Zone" Relationship="MezbanAirKitchenModel.FK_Zone_RestaurantArea" FromRole="RestaurantArea" ToRole="Zone" />
         </EntityType>
         <EntityType Name="RestaurantCategory">
           <Key>
@@ -1424,8 +1681,8 @@
           <Property Name="RestaurantCategoryId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RestaurantId" Type="Guid" Nullable="false" />
           <Property Name="CategoryId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Category_RestaurantCategory" FromRole="RestaurantCategory" ToRole="Category" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Restauran_RestaurantCategory" FromRole="RestaurantCategory" ToRole="Restaurants" />
+          <NavigationProperty Name="Category" Relationship="MezbanAirKitchenModel.FK_Category_RestaurantCategory" FromRole="RestaurantCategory" ToRole="Category" />
+          <NavigationProperty Name="Restaurant" Relationship="MezbanAirKitchenModel.FK_Restauran_RestaurantCategory" FromRole="RestaurantCategory" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="Restaurant">
           <Key>
@@ -1437,8 +1694,8 @@
           <Property Name="ContendifinitionId" Type="Int64" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Longitude" Type="Decimal" Precision="20" Scale="0" />
           <Property Name="Latitude" Type="Decimal" Precision="20" Scale="0" />
           <Property Name="Slogan" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -1452,17 +1709,17 @@
           <Property Name="ShipArea" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DistrictId" Type="Int64" />
           <Property Name="ZoneId" Type="Int64" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK_Restaurant_Comment" FromRole="Restaurants" ToRole="Comment" />
-          <NavigationProperty Name="Contentdefinition" Relationship="Self.FK_Restaurant_ContentdifitionId" FromRole="Restaurants" ToRole="Contentdefinition" />
-          <NavigationProperty Name="Favories" Relationship="Self.FK_Favories_Restaurants" FromRole="Restaurants" ToRole="Favories" />
-          <NavigationProperty Name="Menus" Relationship="Self.FK_Restaurant_Menu" FromRole="Restaurants" ToRole="Menu" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Restaurants" FromRole="Restaurants" ToRole="Order" />
-          <NavigationProperty Name="PromotionLineItems" Relationship="Self.FK_PromotionLineItem_Restaurants" FromRole="Restaurants" ToRole="PromotionLineItem" />
-          <NavigationProperty Name="Ratings" Relationship="Self.FK_Rating_Restaurants" FromRole="Restaurants" ToRole="Rating" />
-          <NavigationProperty Name="RestaurantAreas" Relationship="Self.FK_Restaurant_RestaurantArea" FromRole="Restaurants" ToRole="RestaurantArea" />
-          <NavigationProperty Name="RestaurantCategories" Relationship="Self.FK_Restauran_RestaurantCategory" FromRole="Restaurants" ToRole="RestaurantCategory" />
-          <NavigationProperty Name="UserRestaurants" Relationship="Self.FK_Restaurant_UserRestaurant" FromRole="Restaurants" ToRole="UserRestaurant" />
-          <NavigationProperty Name="RestaurantWorkTimes" Relationship="Self.FK_RestaurantWorkTime_Restaurants" FromRole="Restaurants" ToRole="RestaurantWorkTime" />
+          <NavigationProperty Name="Comments" Relationship="MezbanAirKitchenModel.FK_Restaurant_Comment" FromRole="Restaurant" ToRole="Comment" />
+          <NavigationProperty Name="Contentdefinition" Relationship="MezbanAirKitchenModel.FK_Restaurant_ContentdifitionId" FromRole="Restaurant" ToRole="Contentdefinition" />
+          <NavigationProperty Name="Favories" Relationship="MezbanAirKitchenModel.FK_Favories_Restaurants" FromRole="Restaurant" ToRole="Favory" />
+          <NavigationProperty Name="Menus" Relationship="MezbanAirKitchenModel.FK_Restaurant_Menu" FromRole="Restaurant" ToRole="Menu" />
+          <NavigationProperty Name="Orders" Relationship="MezbanAirKitchenModel.FK_Order_Restaurants" FromRole="Restaurant" ToRole="Order" />
+          <NavigationProperty Name="PromotionLineItems" Relationship="MezbanAirKitchenModel.FK_PromotionLineItem_Restaurants" FromRole="Restaurant" ToRole="PromotionLineItem" />
+          <NavigationProperty Name="Ratings" Relationship="MezbanAirKitchenModel.FK_Rating_Restaurants" FromRole="Restaurant" ToRole="Rating" />
+          <NavigationProperty Name="RestaurantAreas" Relationship="MezbanAirKitchenModel.FK_Restaurant_RestaurantArea" FromRole="Restaurant" ToRole="RestaurantArea" />
+          <NavigationProperty Name="RestaurantCategories" Relationship="MezbanAirKitchenModel.FK_Restauran_RestaurantCategory" FromRole="Restaurant" ToRole="RestaurantCategory" />
+          <NavigationProperty Name="UserRestaurants" Relationship="MezbanAirKitchenModel.FK_Restaurant_UserRestaurant" FromRole="Restaurant" ToRole="UserRestaurant" />
+          <NavigationProperty Name="RestaurantWorkTimes" Relationship="MezbanAirKitchenModel.FK_RestaurantWorkTime_Restaurants" FromRole="Restaurant" ToRole="RestaurantWorkTime" />
         </EntityType>
         <EntityType Name="RestaurantWorkTime">
           <Key>
@@ -1474,10 +1731,10 @@
           <Property Name="OpenTime" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="WeekDay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_RestaurantWorkTime_Restaurants" FromRole="RestaurantWorkTime" ToRole="Restaurants" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Restaurant" Relationship="MezbanAirKitchenModel.FK_RestaurantWorkTime_Restaurants" FromRole="RestaurantWorkTime" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="Tax">
           <Key>
@@ -1503,41 +1760,41 @@
           </Key>
           <Property Name="UserRestaurantId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RestaurantId" Type="Guid" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_User_UserRestaurant" FromRole="UserRestaurant" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Restaurant_UserRestaurant" FromRole="UserRestaurant" ToRole="Restaurants" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="MezbanAirKitchenModel.FK_User_UserRestaurant" FromRole="UserRestaurant" ToRole="AspNetUser" />
+          <NavigationProperty Name="Restaurant" Relationship="MezbanAirKitchenModel.FK_Restaurant_UserRestaurant" FromRole="UserRestaurant" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="Voucher">
           <Key>
             <PropertyRef Name="VoucherId" />
           </Key>
           <Property Name="VoucherId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="value" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="VoucherLineItems" Relationship="Self.FK_Voucher_VoucherLineItem" FromRole="Voucher" ToRole="VoucherLineItem" />
+          <NavigationProperty Name="VoucherLineItems" Relationship="MezbanAirKitchenModel.FK_Voucher_VoucherLineItem" FromRole="Voucher" ToRole="VoucherLineItem" />
         </EntityType>
         <EntityType Name="VoucherLineItem">
           <Key>
             <PropertyRef Name="VoucherLineItemId" />
           </Key>
           <Property Name="VoucherLineItemId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="VoucherId" Type="Int64" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="Voucher" Relationship="Self.FK_Voucher_VoucherLineItem" FromRole="VoucherLineItem" ToRole="Voucher" />
+          <NavigationProperty Name="Voucher" Relationship="MezbanAirKitchenModel.FK_Voucher_VoucherLineItem" FromRole="VoucherLineItem" ToRole="Voucher" />
         </EntityType>
         <EntityType Name="Zone">
           <Key>
@@ -1545,61 +1802,73 @@
           </Key>
           <Property Name="ZoneId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DistrictId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="District" Relationship="Self.FK_District_Zone" FromRole="Zone" ToRole="District" />
-          <NavigationProperty Name="RestaurantAreas" Relationship="Self.FK_Zone_RestaurantArea" FromRole="Zone" ToRole="RestaurantArea" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="District" Relationship="MezbanAirKitchenModel.FK_District_Zone" FromRole="Zone" ToRole="District" />
+          <NavigationProperty Name="RestaurantAreas" Relationship="MezbanAirKitchenModel.FK_Zone_RestaurantArea" FromRole="Zone" ToRole="RestaurantArea" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Type="MezbanAirKitchenModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserClaims">
+            <Dependent Role="AspNetUserClaim">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Type="MezbanAirKitchenModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserLogins">
+            <Dependent Role="AspNetUserLogin">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Favories_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="Favories" Type="Self.Favory" Multiplicity="*" />
+        <Association Name="FK_AspNetUsers_Persons">
+          <End Type="MezbanAirKitchenModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="AspNetUser">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favories_AspNetUsers">
+          <End Type="MezbanAirKitchenModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Favory" Role="Favory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Favories">
+            <Dependent Role="Favory">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Order">
@@ -1608,10 +1877,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Rating" Role="Rating" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Rating">
@@ -1620,10 +1889,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_UserRestaurant">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="UserRestaurant" Type="Self.UserRestaurant" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.UserRestaurant" Role="UserRestaurant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserRestaurant">
@@ -1632,8 +1901,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Category_RestaurantCategory">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="RestaurantCategory" Type="Self.RestaurantCategory" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.RestaurantCategory" Role="RestaurantCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="CategoryId" />
@@ -1644,8 +1913,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Contentdifinition_Category">
-          <End Role="Contentdefinition" Type="Self.Contentdefinition" Multiplicity="1" />
-          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Contentdefinition" Role="Contentdefinition" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Category" Role="Category" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Contentdefinition">
               <PropertyRef Name="ContentdefinitionId" />
@@ -1656,8 +1925,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_City_District">
-          <End Role="City" Type="Self.City" Multiplicity="1" />
-          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.City" Role="City" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.District" Role="District" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="City">
               <PropertyRef Name="CityId" />
@@ -1668,8 +1937,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Country_City">
-          <End Role="Country" Type="Self.Country" Multiplicity="1" />
-          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Country" Role="Country" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.City" Role="City" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Country">
               <PropertyRef Name="CountryId" />
@@ -1680,10 +1949,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Restaurant_Comment">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Comment" Role="Comment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Restaurants">
+            <Principal Role="Restaurant">
               <PropertyRef Name="RestaurantId" />
             </Principal>
             <Dependent Role="Comment">
@@ -1692,8 +1961,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Contendifiniton_MenuItem">
-          <End Role="Contentdefinition" Type="Self.Contentdefinition" Multiplicity="1" />
-          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Contentdefinition" Role="Contentdefinition" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.MenuItem" Role="MenuItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Contentdefinition">
               <PropertyRef Name="ContentdefinitionId" />
@@ -1704,8 +1973,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ContentDefinition_Menu">
-          <End Role="Contentdefinition" Type="Self.Contentdefinition" Multiplicity="1" />
-          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Contentdefinition" Role="Contentdefinition" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Menu" Role="Menu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Contentdefinition">
               <PropertyRef Name="ContentdefinitionId" />
@@ -1716,8 +1985,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Contentdifition_Option">
-          <End Role="Contentdefinition" Type="Self.Contentdefinition" Multiplicity="1" />
-          <End Role="Option" Type="Self.Option" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Contentdefinition" Role="Contentdefinition" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Option" Role="Option" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Contentdefinition">
               <PropertyRef Name="ContentdefinitionId" />
@@ -1728,8 +1997,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ContentEntry_ContentDefinition">
-          <End Role="Contentdefinition" Type="Self.Contentdefinition" Multiplicity="1" />
-          <End Role="ContentEntry" Type="Self.ContentEntry" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Contentdefinition" Role="Contentdefinition" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.ContentEntry" Role="ContentEntry" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Contentdefinition">
               <PropertyRef Name="ContentdefinitionId" />
@@ -1740,8 +2009,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Promotion_Contentdefinition">
-          <End Role="Contentdefinition" Type="Self.Contentdefinition" Multiplicity="1" />
-          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Contentdefinition" Role="Contentdefinition" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Promotion" Role="Promotion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Contentdefinition">
               <PropertyRef Name="ContentdefinitionId" />
@@ -1752,20 +2021,20 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Restaurant_ContentdifitionId">
-          <End Role="Contentdefinition" Type="Self.Contentdefinition" Multiplicity="1" />
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Contentdefinition" Role="Contentdefinition" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Contentdefinition">
               <PropertyRef Name="ContentdefinitionId" />
             </Principal>
-            <Dependent Role="Restaurants">
+            <Dependent Role="Restaurant">
               <PropertyRef Name="ContendifinitionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ContentEntry_Language">
-          <End Role="Language" Type="Self.Language" Multiplicity="1" />
-          <End Role="ContentEntry" Type="Self.ContentEntry" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Language" Role="Language" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.ContentEntry" Role="ContentEntry" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Language">
               <PropertyRef Name="Id" />
@@ -1776,8 +2045,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_District_RestaurantArea">
-          <End Role="District" Type="Self.District" Multiplicity="1" />
-          <End Role="RestaurantArea" Type="Self.RestaurantArea" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.District" Role="District" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.RestaurantArea" Role="RestaurantArea" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="District">
               <PropertyRef Name="DistrictId" />
@@ -1788,8 +2057,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_District_Zone">
-          <End Role="District" Type="Self.District" Multiplicity="1" />
-          <End Role="Zone" Type="Self.Zone" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.District" Role="District" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Zone" Role="Zone" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="District">
               <PropertyRef Name="DistrictId" />
@@ -1800,20 +2069,20 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Favories_Restaurants">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="Favories" Type="Self.Favory" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Favory" Role="Favory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Restaurants">
+            <Principal Role="Restaurant">
               <PropertyRef Name="RestaurantId" />
             </Principal>
-            <Dependent Role="Favories">
+            <Dependent Role="Favory">
               <PropertyRef Name="RestaurantId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Menu_MenuItem">
-          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
-          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Menu" Role="Menu" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.MenuItem" Role="MenuItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Menu">
               <PropertyRef Name="MenuId" />
@@ -1824,10 +2093,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Restaurant_Menu">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Menu" Role="Menu" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Restaurants">
+            <Principal Role="Restaurant">
               <PropertyRef Name="RestaurantId" />
             </Principal>
             <Dependent Role="Menu">
@@ -1836,8 +2105,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MenuItem_Option">
-          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="1" />
-          <End Role="Option" Type="Self.Option" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.MenuItem" Role="MenuItem" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Option" Role="Option" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MenuItem">
               <PropertyRef Name="MenuItemId" />
@@ -1848,10 +2117,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Restaurants">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Restaurants">
+            <Principal Role="Restaurant">
               <PropertyRef Name="RestaurantId" />
             </Principal>
             <Dependent Role="Order">
@@ -1860,8 +2129,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PromotionLineItem_Promotion">
-          <End Role="Promotion" Type="Self.Promotion" Multiplicity="1" />
-          <End Role="PromotionLineItem" Type="Self.PromotionLineItem" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Promotion" Role="Promotion" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.PromotionLineItem" Role="PromotionLineItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Promotion">
               <PropertyRef Name="PromotionId" />
@@ -1872,10 +2141,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PromotionLineItem_Restaurants">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="PromotionLineItem" Type="Self.PromotionLineItem" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.PromotionLineItem" Role="PromotionLineItem" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Restaurants">
+            <Principal Role="Restaurant">
               <PropertyRef Name="RestaurantId" />
             </Principal>
             <Dependent Role="PromotionLineItem">
@@ -1884,10 +2153,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_Restaurants">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.Rating" Role="Rating" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Restaurants">
+            <Principal Role="Restaurant">
               <PropertyRef Name="RestaurantId" />
             </Principal>
             <Dependent Role="Rating">
@@ -1896,10 +2165,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Restaurant_RestaurantArea">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="RestaurantArea" Type="Self.RestaurantArea" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.RestaurantArea" Role="RestaurantArea" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Restaurants">
+            <Principal Role="Restaurant">
               <PropertyRef Name="RestaurantId" />
             </Principal>
             <Dependent Role="RestaurantArea">
@@ -1908,8 +2177,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Zone_RestaurantArea">
-          <End Role="Zone" Type="Self.Zone" Multiplicity="1" />
-          <End Role="RestaurantArea" Type="Self.RestaurantArea" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Zone" Role="Zone" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.RestaurantArea" Role="RestaurantArea" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Zone">
               <PropertyRef Name="ZoneId" />
@@ -1920,10 +2189,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Restauran_RestaurantCategory">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="RestaurantCategory" Type="Self.RestaurantCategory" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.RestaurantCategory" Role="RestaurantCategory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Restaurants">
+            <Principal Role="Restaurant">
               <PropertyRef Name="RestaurantId" />
             </Principal>
             <Dependent Role="RestaurantCategory">
@@ -1932,10 +2201,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Restaurant_UserRestaurant">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="UserRestaurant" Type="Self.UserRestaurant" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.UserRestaurant" Role="UserRestaurant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Restaurants">
+            <Principal Role="Restaurant">
               <PropertyRef Name="RestaurantId" />
             </Principal>
             <Dependent Role="UserRestaurant">
@@ -1944,10 +2213,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RestaurantWorkTime_Restaurants">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="RestaurantWorkTime" Type="Self.RestaurantWorkTime" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.RestaurantWorkTime" Role="RestaurantWorkTime" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Restaurants">
+            <Principal Role="Restaurant">
               <PropertyRef Name="RestaurantId" />
             </Principal>
             <Dependent Role="RestaurantWorkTime">
@@ -1956,8 +2225,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Voucher_VoucherLineItem">
-          <End Role="Voucher" Type="Self.Voucher" Multiplicity="1" />
-          <End Role="VoucherLineItem" Type="Self.VoucherLineItem" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.Voucher" Role="Voucher" Multiplicity="1" />
+          <End Type="MezbanAirKitchenModel.VoucherLineItem" Role="VoucherLineItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Voucher">
               <PropertyRef Name="VoucherId" />
@@ -1968,213 +2237,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="MezbanAirKitchenModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="MezbanAirKitchenEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Cities" EntityType="Self.City" />
-          <EntitySet Name="Comments" EntityType="Self.Comment" />
-          <EntitySet Name="Contentdefinitions" EntityType="Self.Contentdefinition" />
-          <EntitySet Name="ContentEntries" EntityType="Self.ContentEntry" />
-          <EntitySet Name="Countries" EntityType="Self.Country" />
-          <EntitySet Name="Districts" EntityType="Self.District" />
-          <EntitySet Name="Favories" EntityType="Self.Favory" />
-          <EntitySet Name="Languages" EntityType="Self.Language" />
-          <EntitySet Name="Menus" EntityType="Self.Menu" />
-          <EntitySet Name="MenuItems" EntityType="Self.MenuItem" />
-          <EntitySet Name="Options" EntityType="Self.Option" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
-          <EntitySet Name="PaymentProviders" EntityType="Self.PaymentProvider" />
-          <EntitySet Name="Promotions" EntityType="Self.Promotion" />
-          <EntitySet Name="PromotionLineItems" EntityType="Self.PromotionLineItem" />
-          <EntitySet Name="Ratings" EntityType="Self.Rating" />
-          <EntitySet Name="RestaurantAreas" EntityType="Self.RestaurantArea" />
-          <EntitySet Name="RestaurantCategories" EntityType="Self.RestaurantCategory" />
-          <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
-          <EntitySet Name="RestaurantWorkTimes" EntityType="Self.RestaurantWorkTime" />
-          <EntitySet Name="Taxes" EntityType="Self.Tax" />
-          <EntitySet Name="TypeOfCuisines" EntityType="Self.TypeOfCuisine" />
-          <EntitySet Name="UserRestaurants" EntityType="Self.UserRestaurant" />
-          <EntitySet Name="Vouchers" EntityType="Self.Voucher" />
-          <EntitySet Name="VoucherLineItems" EntityType="Self.VoucherLineItem" />
-          <EntitySet Name="Zones" EntityType="Self.Zone" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Favories_AspNetUsers" Association="Self.FK_Favories_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Favories" EntitySet="Favories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_AspNetUsers" Association="Self.FK_Order_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rating_AspNetUsers" Association="Self.FK_Rating_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Rating" EntitySet="Ratings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_UserRestaurant" Association="Self.FK_User_UserRestaurant">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="UserRestaurant" EntitySet="UserRestaurants" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Category_RestaurantCategory" Association="Self.FK_Category_RestaurantCategory">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="RestaurantCategory" EntitySet="RestaurantCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contentdifinition_Category" Association="Self.FK_Contentdifinition_Category">
-            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
-            <End Role="Category" EntitySet="Categories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_City_District" Association="Self.FK_City_District">
-            <End Role="City" EntitySet="Cities" />
-            <End Role="District" EntitySet="Districts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Country_City" Association="Self.FK_Country_City">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="City" EntitySet="Cities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Restaurant_Comment" Association="Self.FK_Restaurant_Comment">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contendifiniton_MenuItem" Association="Self.FK_Contendifiniton_MenuItem">
-            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
-            <End Role="MenuItem" EntitySet="MenuItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ContentDefinition_Menu" Association="Self.FK_ContentDefinition_Menu">
-            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
-            <End Role="Menu" EntitySet="Menus" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contentdifition_Option" Association="Self.FK_Contentdifition_Option">
-            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
-            <End Role="Option" EntitySet="Options" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ContentEntry_ContentDefinition" Association="Self.FK_ContentEntry_ContentDefinition">
-            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
-            <End Role="ContentEntry" EntitySet="ContentEntries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Promotion_Contentdefinition" Association="Self.FK_Promotion_Contentdefinition">
-            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
-            <End Role="Promotion" EntitySet="Promotions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Restaurant_ContentdifitionId" Association="Self.FK_Restaurant_ContentdifitionId">
-            <End Role="Contentdefinition" EntitySet="Contentdefinitions" />
-            <End Role="Restaurants" EntitySet="Restaurants" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ContentEntry_Language" Association="Self.FK_ContentEntry_Language">
-            <End Role="Language" EntitySet="Languages" />
-            <End Role="ContentEntry" EntitySet="ContentEntries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_District_RestaurantArea" Association="Self.FK_District_RestaurantArea">
-            <End Role="District" EntitySet="Districts" />
-            <End Role="RestaurantArea" EntitySet="RestaurantAreas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_District_Zone" Association="Self.FK_District_Zone">
-            <End Role="District" EntitySet="Districts" />
-            <End Role="Zone" EntitySet="Zones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Favories_Restaurants" Association="Self.FK_Favories_Restaurants">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="Favories" EntitySet="Favories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Menu_MenuItem" Association="Self.FK_Menu_MenuItem">
-            <End Role="Menu" EntitySet="Menus" />
-            <End Role="MenuItem" EntitySet="MenuItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Restaurant_Menu" Association="Self.FK_Restaurant_Menu">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="Menu" EntitySet="Menus" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MenuItem_Option" Association="Self.FK_MenuItem_Option">
-            <End Role="MenuItem" EntitySet="MenuItems" />
-            <End Role="Option" EntitySet="Options" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Restaurants" Association="Self.FK_Order_Restaurants">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PromotionLineItem_Promotion" Association="Self.FK_PromotionLineItem_Promotion">
-            <End Role="Promotion" EntitySet="Promotions" />
-            <End Role="PromotionLineItem" EntitySet="PromotionLineItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PromotionLineItem_Restaurants" Association="Self.FK_PromotionLineItem_Restaurants">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="PromotionLineItem" EntitySet="PromotionLineItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rating_Restaurants" Association="Self.FK_Rating_Restaurants">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="Rating" EntitySet="Ratings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Restaurant_RestaurantArea" Association="Self.FK_Restaurant_RestaurantArea">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="RestaurantArea" EntitySet="RestaurantAreas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Zone_RestaurantArea" Association="Self.FK_Zone_RestaurantArea">
-            <End Role="Zone" EntitySet="Zones" />
-            <End Role="RestaurantArea" EntitySet="RestaurantAreas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Restauran_RestaurantCategory" Association="Self.FK_Restauran_RestaurantCategory">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="RestaurantCategory" EntitySet="RestaurantCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Restaurant_UserRestaurant" Association="Self.FK_Restaurant_UserRestaurant">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="UserRestaurant" EntitySet="UserRestaurants" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RestaurantWorkTime_Restaurants" Association="Self.FK_RestaurantWorkTime_Restaurants">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="RestaurantWorkTime" EntitySet="RestaurantWorkTimes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Voucher_VoucherLineItem" Association="Self.FK_Voucher_VoucherLineItem">
-            <End Role="Voucher" EntitySet="Vouchers" />
-            <End Role="VoucherLineItem" EntitySet="VoucherLineItems" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="EmailTemplates" EntityType="MezbanAirKitchenModel.EmailTemplate" />
-          <EntitySet Name="MultiMedias" EntityType="MezbanAirKitchenModel.MultiMedia" />
-        </EntityContainer>
-        <EntityType Name="EmailTemplate">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MailFrom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="MailTo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Boolean" />
-          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="MultiMedia">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" />
-          <Property Name="FileName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="FileUrl" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MasterId" Type="Guid" Nullable="false" />
-          <Property Name="Owned" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FileSize" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -2183,450 +2249,143 @@
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="SeqId" ColumnName="SeqId" />
-                <ScalarProperty Name="ContendifinitonId" ColumnName="ContendifinitonId" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="SortOder" ColumnName="SortOder" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="SortOder" ColumnName="SortOder" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ContendifinitonId" ColumnName="ContendifinitonId" />
+                <ScalarProperty Name="SeqId" ColumnName="SeqId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cities">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.City">
               <MappingFragment StoreEntitySet="City">
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="CitiCode" ColumnName="CitiCode" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CitiCode" ColumnName="CitiCode" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Contentdefinitions">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.Contentdefinition">
               <MappingFragment StoreEntitySet="Contentdefinition">
-                <ScalarProperty Name="ContentdefinitionId" ColumnName="ContentdefinitionId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContentdefinitionId" ColumnName="ContentdefinitionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ContentEntries">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.ContentEntry">
               <MappingFragment StoreEntitySet="ContentEntry">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Token" ColumnName="Token" />
-                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
                 <ScalarProperty Name="ContendefinitionId" ColumnName="ContendefinitionId" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Countries">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.Country">
               <MappingFragment StoreEntitySet="Country">
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Districts">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.District">
               <MappingFragment StoreEntitySet="District">
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Favories">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Favory">
-              <MappingFragment StoreEntitySet="Favories">
-                <ScalarProperty Name="FavorieId" ColumnName="FavorieId" />
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Languages">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Language">
-              <MappingFragment StoreEntitySet="Language">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Menus">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Menu">
-              <MappingFragment StoreEntitySet="Menu">
-                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
-                <ScalarProperty Name="ContentdefinitionId" ColumnName="ContentdefinitionId" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="SeqId" ColumnName="SeqId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MenuItems">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.MenuItem">
-              <MappingFragment StoreEntitySet="MenuItem">
-                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="CondefinitionId" ColumnName="CondefinitionId" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="HasCombo" ColumnName="HasCombo" />
-                <ScalarProperty Name="SortOder" ColumnName="SortOder" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
-                <ScalarProperty Name="SeqId" ColumnName="SeqId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Options">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Option">
-              <MappingFragment StoreEntitySet="Option">
-                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
-                <ScalarProperty Name="ContendifinitonId" ColumnName="ContendifinitonId" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="OderId" ColumnName="OderId" />
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="OderDate" ColumnName="OderDate" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TaxTotal" ColumnName="TaxTotal" />
-                <ScalarProperty Name="OderReq" ColumnName="OderReq" />
-                <ScalarProperty Name="CheckSum" ColumnName="CheckSum" />
-                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
-                <ScalarProperty Name="PaymentWith" ColumnName="PaymentWith" />
-                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
-                <ScalarProperty Name="ReasonReject" ColumnName="ReasonReject" />
-                <ScalarProperty Name="ReasonCancel" ColumnName="ReasonCancel" />
-                <ScalarProperty Name="ChargeFee" ColumnName="ChargeFee" />
-                <ScalarProperty Name="DeliveryCost" ColumnName="DeliveryCost" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PaymentProviders">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.PaymentProvider">
-              <MappingFragment StoreEntitySet="PaymentProvider">
-                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Setting" ColumnName="Setting" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Promotions">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Promotion">
-              <MappingFragment StoreEntitySet="Promotion">
-                <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ContentdifinitionId" ColumnName="ContentdifinitionId" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="MinOder" ColumnName="MinOder" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PromotionLineItems">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.PromotionLineItem">
-              <MappingFragment StoreEntitySet="PromotionLineItem">
-                <ScalarProperty Name="PromotionLineItemId" ColumnName="PromotionLineItemId" />
-                <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
-                <ScalarProperty Name="RestauranId" ColumnName="RestauranId" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Ratings">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Rating">
-              <MappingFragment StoreEntitySet="Rating">
-                <ScalarProperty Name="RatingId" ColumnName="RatingId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="Quality" ColumnName="Quality" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RestaurantAreas">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.RestaurantArea">
-              <MappingFragment StoreEntitySet="RestaurantArea">
-                <ScalarProperty Name="RestaurantAreaId" ColumnName="RestaurantAreaId" />
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RestaurantCategories">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.RestaurantCategory">
-              <MappingFragment StoreEntitySet="RestaurantCategory">
-                <ScalarProperty Name="RestaurantCategoryId" ColumnName="RestaurantCategoryId" />
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Restaurants">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Restaurant">
-              <MappingFragment StoreEntitySet="Restaurants">
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Avartar" ColumnName="Avartar" />
-                <ScalarProperty Name="ContendifinitionId" ColumnName="ContendifinitionId" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Slogan" ColumnName="Slogan" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="KeySearch" ColumnName="KeySearch" />
-                <ScalarProperty Name="MinPrice" ColumnName="MinPrice" />
-                <ScalarProperty Name="EstimateTimeDelivery" ColumnName="EstimateTimeDelivery" />
-                <ScalarProperty Name="SeqId" ColumnName="SeqId" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ShipArea" ColumnName="ShipArea" />
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RestaurantWorkTimes">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.RestaurantWorkTime">
-              <MappingFragment StoreEntitySet="RestaurantWorkTime">
-                <ScalarProperty Name="RestaurantWorkTimeId" ColumnName="RestaurantWorkTimeId" />
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="CloseTime" ColumnName="CloseTime" />
-                <ScalarProperty Name="OpenTime" ColumnName="OpenTime" />
-                <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Taxes">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Tax">
-              <MappingFragment StoreEntitySet="Tax">
-                <ScalarProperty Name="TaxId" ColumnName="TaxId" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TypeOfCuisines">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.TypeOfCuisine">
-              <MappingFragment StoreEntitySet="TypeOfCuisine">
-                <ScalarProperty Name="TypeCuisineId" ColumnName="TypeCuisineId" />
-                <ScalarProperty Name="NameES" ColumnName="NameES" />
-                <ScalarProperty Name="NameEnglish" ColumnName="NameEnglish" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserRestaurants">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.UserRestaurant">
-              <MappingFragment StoreEntitySet="UserRestaurant">
-                <ScalarProperty Name="UserRestaurantId" ColumnName="UserRestaurantId" />
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vouchers">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Voucher">
-              <MappingFragment StoreEntitySet="Voucher">
-                <ScalarProperty Name="VoucherId" ColumnName="VoucherId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VoucherLineItems">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.VoucherLineItem">
-              <MappingFragment StoreEntitySet="VoucherLineItem">
-                <ScalarProperty Name="VoucherLineItemId" ColumnName="VoucherLineItemId" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="VoucherId" ColumnName="VoucherId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Zones">
-            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Zone">
-              <MappingFragment StoreEntitySet="Zone">
-                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="MezbanAirKitchenModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="EmailTemplates">
             <EntityTypeMapping TypeName="MezbanAirKitchenModel.EmailTemplate">
               <MappingFragment StoreEntitySet="EmailTemplate">
@@ -2639,6 +2398,68 @@
                 <ScalarProperty Name="MailTo" ColumnName="MailTo" />
                 <ScalarProperty Name="MailFrom" ColumnName="MailFrom" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favories">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Favory">
+              <MappingFragment StoreEntitySet="Favories">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="FavorieId" ColumnName="FavorieId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="SeqId" ColumnName="SeqId" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ContentdefinitionId" ColumnName="ContentdefinitionId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuItems">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.MenuItem">
+              <MappingFragment StoreEntitySet="MenuItem">
+                <ScalarProperty Name="SeqId" ColumnName="SeqId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SortOder" ColumnName="SortOder" />
+                <ScalarProperty Name="HasCombo" ColumnName="HasCombo" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CondefinitionId" ColumnName="CondefinitionId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2657,6 +2478,267 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Options">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Option">
+              <MappingFragment StoreEntitySet="Option">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ContendifinitonId" ColumnName="ContendifinitonId" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="DeliveryCost" ColumnName="DeliveryCost" />
+                <ScalarProperty Name="ChargeFee" ColumnName="ChargeFee" />
+                <ScalarProperty Name="ReasonCancel" ColumnName="ReasonCancel" />
+                <ScalarProperty Name="ReasonReject" ColumnName="ReasonReject" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="PaymentWith" ColumnName="PaymentWith" />
+                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
+                <ScalarProperty Name="CheckSum" ColumnName="CheckSum" />
+                <ScalarProperty Name="OderReq" ColumnName="OderReq" />
+                <ScalarProperty Name="TaxTotal" ColumnName="TaxTotal" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="OderDate" ColumnName="OderDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="OderId" ColumnName="OderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentProviders">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.PaymentProvider">
+              <MappingFragment StoreEntitySet="PaymentProvider">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Setting" ColumnName="Setting" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persons">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Person">
+              <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FisrtName" ColumnName="FisrtName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SeqId" ColumnName="SeqId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promotions">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Promotion">
+              <MappingFragment StoreEntitySet="Promotion">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MinOder" ColumnName="MinOder" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ContentdifinitionId" ColumnName="ContentdifinitionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionLineItems">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.PromotionLineItem">
+              <MappingFragment StoreEntitySet="PromotionLineItem">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="RestauranId" ColumnName="RestauranId" />
+                <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
+                <ScalarProperty Name="PromotionLineItemId" ColumnName="PromotionLineItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Quality" ColumnName="Quality" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RestaurantAreas">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.RestaurantArea">
+              <MappingFragment StoreEntitySet="RestaurantArea">
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="RestaurantAreaId" ColumnName="RestaurantAreaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RestaurantCategories">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.RestaurantCategory">
+              <MappingFragment StoreEntitySet="RestaurantCategory">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="RestaurantCategoryId" ColumnName="RestaurantCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restaurants">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Restaurant">
+              <MappingFragment StoreEntitySet="Restaurants">
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="ShipArea" ColumnName="ShipArea" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SeqId" ColumnName="SeqId" />
+                <ScalarProperty Name="EstimateTimeDelivery" ColumnName="EstimateTimeDelivery" />
+                <ScalarProperty Name="MinPrice" ColumnName="MinPrice" />
+                <ScalarProperty Name="KeySearch" ColumnName="KeySearch" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Slogan" ColumnName="Slogan" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ContendifinitionId" ColumnName="ContendifinitionId" />
+                <ScalarProperty Name="Avartar" ColumnName="Avartar" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RestaurantWorkTimes">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.RestaurantWorkTime">
+              <MappingFragment StoreEntitySet="RestaurantWorkTime">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
+                <ScalarProperty Name="OpenTime" ColumnName="OpenTime" />
+                <ScalarProperty Name="CloseTime" ColumnName="CloseTime" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="RestaurantWorkTimeId" ColumnName="RestaurantWorkTimeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taxes">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Tax">
+              <MappingFragment StoreEntitySet="Tax">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="TaxId" ColumnName="TaxId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeOfCuisines">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.TypeOfCuisine">
+              <MappingFragment StoreEntitySet="TypeOfCuisine">
+                <ScalarProperty Name="NameEnglish" ColumnName="NameEnglish" />
+                <ScalarProperty Name="NameES" ColumnName="NameES" />
+                <ScalarProperty Name="TypeCuisineId" ColumnName="TypeCuisineId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRestaurants">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.UserRestaurant">
+              <MappingFragment StoreEntitySet="UserRestaurant">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="UserRestaurantId" ColumnName="UserRestaurantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vouchers">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Voucher">
+              <MappingFragment StoreEntitySet="Voucher">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="VoucherId" ColumnName="VoucherId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VoucherLineItems">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.VoucherLineItem">
+              <MappingFragment StoreEntitySet="VoucherLineItem">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="VoucherId" ColumnName="VoucherId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="VoucherLineItemId" ColumnName="VoucherLineItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zones">
+            <EntityTypeMapping TypeName="MezbanAirKitchenModel.Zone">
+              <MappingFragment StoreEntitySet="Zone">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="MezbanAirKitchenModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
