@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MezbanAirKitchen.Models;
 using MezbanService.Interfaces;
+using MezbanCommon.Heplers;
 
 namespace MezbanAirKitchen.Controllers
 {
@@ -68,13 +69,31 @@ namespace MezbanAirKitchen.Controllers
             {
                 return View(model);
             }
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("", @"Email hoặc mật khẩu không chính xác.");
+                return View(model);
+            }
 
+            var status = _aspNetUserService.CheckStatusUser(user.Id);
+            if (!status)
+            {
+                ModelState.AddModelError("", @"Tài khoản chưa được active.");
+                return View(model);
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (string.IsNullOrWhiteSpace(returnUrl))
+                    {
+                        if(CheckRole(Contanst.RoleName.ADMIN)) return RedirectToAction("Index", "Home", new { area = "Admin" });
+                        if (CheckRole(Contanst.RoleName.OWNER)) return RedirectToAction("Index", "Home", new { area = "Owner" });
+                        if (CheckRole(Contanst.RoleName.EMPLOYEE)) return RedirectToAction("Index", "Home");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

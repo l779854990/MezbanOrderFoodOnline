@@ -1,11 +1,11 @@
-﻿using MezbanCommon;
+﻿using MezbanCommon.Heplers;
 using MezbanData.DbContext;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
+
 
 namespace MezbanInfrastructure.Repository
 {
@@ -197,7 +197,7 @@ namespace MezbanInfrastructure.Repository
         public virtual IEnumerable<T> GetPaging(int page, int pageSize)
         {
             page = (page <= 0) ? 1 : page;
-            pageSize = (pageSize <= 0) ? ContanstHelper.DEFAULT_PAGE_SIZE : pageSize;
+            pageSize = (pageSize <= 0) ? Contanst.DEFAULT_PAGE_SIZE : pageSize;
 
             return Dbset.OrderByDescending(OrderByExtension.GetKeyField(typeof(T))).Skip((page - 1) * pageSize).Take(pageSize);
         }
@@ -210,7 +210,7 @@ namespace MezbanInfrastructure.Repository
         public IEnumerable<T> GetPaging(int page, int pageSize, Expression<Func<T, bool>> expression)
         {
             page = (page <= 0) ? 1 : page;
-            pageSize = (pageSize <= 0) ? ContanstHelper.DEFAULT_PAGE_SIZE : pageSize;
+            pageSize = (pageSize <= 0) ? Contanst.DEFAULT_PAGE_SIZE : pageSize;
 
             return Dbset.Where(expression).OrderBy(OrderByExtension.GetKeyField(typeof(T))).Skip((page - 1) * pageSize).Take(pageSize);
         }

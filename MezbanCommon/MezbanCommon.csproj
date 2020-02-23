@@ -44,8 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContanstHelper.cs" />
-    <Compile Include="LoggerHelper.cs" />
+    <Compile Include="Heplers\Contanst.cs" />
+    <Compile Include="Enums\UserRoleEnum.cs" />
+    <Compile Include="Heplers\LoggerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

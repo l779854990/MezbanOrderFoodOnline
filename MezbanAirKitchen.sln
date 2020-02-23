@@ -5,10 +5,6 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MezbanAirKitchen", "MezbanAirKitchen\MezbanAirKitchen.csproj", "{3354243F-DC0A-4B56-B0BD-B17179F288B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MezbanAdmin", "MezbanAirKitchen\Areas\MezbanAdmin\MezbanAdmin.csproj", "{DF20DB11-5414-4DC0-A111-C020AF14A447}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MezbanOwner", "MezbanAirKitchen\Areas\MezbanOwner\MezbanOwner.csproj", "{70047737-4427-49C7-B56D-19A4B87B78A8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MezbanModel", "MezbanModel\MezbanModel.csproj", "{1BF1C0FF-073F-489F-A527-43C10EF94A2C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MezbanData", "MezbanData\MezbanData.csproj", "{4DC74BAE-3AFA-4972-A8CE-D786B9E110C9}"
@@ -31,14 +27,6 @@ Global
 		{3354243F-DC0A-4B56-B0BD-B17179F288B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3354243F-DC0A-4B56-B0BD-B17179F288B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3354243F-DC0A-4B56-B0BD-B17179F288B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF20DB11-5414-4DC0-A111-C020AF14A447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF20DB11-5414-4DC0-A111-C020AF14A447}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF20DB11-5414-4DC0-A111-C020AF14A447}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF20DB11-5414-4DC0-A111-C020AF14A447}.Release|Any CPU.Build.0 = Release|Any CPU
-		{70047737-4427-49C7-B56D-19A4B87B78A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70047737-4427-49C7-B56D-19A4B87B78A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70047737-4427-49C7-B56D-19A4B87B78A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{70047737-4427-49C7-B56D-19A4B87B78A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1BF1C0FF-073F-489F-A527-43C10EF94A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1BF1C0FF-073F-489F-A527-43C10EF94A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BF1C0FF-073F-489F-A527-43C10EF94A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU

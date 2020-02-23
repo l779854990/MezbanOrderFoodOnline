@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MezbanService.Interfaces;
 
 namespace MezbanAirKitchen.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+
+        public HomeController(ILanguageService languageService, IAspNetUserService aspNetUserService) : base(languageService, aspNetUserService)
+        {
+
+        }
+
         public ActionResult Index()
         {
             return View();

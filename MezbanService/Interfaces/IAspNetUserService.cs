@@ -1,14 +1,13 @@
 ﻿using MezbanData.DbContext;
-using System;
+using MezbanModel.AspNetUser;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MezbanService.Interfaces
 {
     public interface IAspNetUserService : IBaseService<AspNetUser>
     {
-       
+        bool CheckStatusUser(string userId);
+        List<AspNetUser> GetAll();
+        AspNetUser GetBaseUserId(string userId);
     }
 }

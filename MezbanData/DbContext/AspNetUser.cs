@@ -38,6 +38,8 @@ namespace MezbanData.DbContext
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
         public System.Guid PersonId { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }

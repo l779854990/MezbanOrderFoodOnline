@@ -202,6 +202,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Owner\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Owner\OwnerAreaRegistration.cs" />
     <Compile Include="Authentication\CustomAuthorize.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -1832,6 +1837,8 @@
     <Content Include="Assets\backend\plugins\toastr\toastr.css" />
     <Content Include="Assets\backend\plugins\toastr\toastr.min.css" />
     <Content Include="Assets\backend\plugins\toastr\toastr.min.js" />
+    <Content Include="Assets\Client\css\login.css" />
+    <Content Include="Assets\Client\js\login.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -1839,8 +1846,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1942,6 +1949,18 @@
     <Content Include="Assets\backend\plugins\summernote\summernote.js.map" />
     <Content Include="Assets\backend\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.scss" />
     <Content Include="Assets\backend\plugins\toastr\toastr.js.map" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_sidebar.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Contact.cshtml" />
+    <Content Include="Areas\Owner\Views\web.config" />
+    <Content Include="Areas\Owner\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Owner\Views\Shared\_SideBar.cshtml" />
+    <Content Include="Areas\Owner\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Owner\Views\Home\About.cshtml" />
+    <Content Include="Areas\Owner\Views\Home\Contact.cshtml" />
+    <Content Include="Areas\Owner\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -2024,6 +2043,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <None Include="Views\Account\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2044,7 +2064,6 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
@@ -2071,7 +2090,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -2090,6 +2108,10 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MezbanCommon\MezbanCommon.csproj">
+      <Project>{d4b1d5ee-94ae-411e-8a96-35c719dded45}</Project>
+      <Name>MezbanCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MezbanData\MezbanData.csproj">
       <Project>{4dc74bae-3afa-4972-a8ce-d786b9e110c9}</Project>
       <Name>MezbanData</Name>
@@ -2101,10 +2123,6 @@
     <ProjectReference Include="..\MezbanService\MezbanServices.csproj">
       <Project>{9db4be0b-e175-46e4-8155-b59b4d5ba28c}</Project>
       <Name>MezbanServices</Name>
-    </ProjectReference>
-    <ProjectReference Include="Areas\MezbanAdmin\MezbanAdmin.csproj">
-      <Project>{DF20DB11-5414-4DC0-A111-C020AF14A447}</Project>
-      <Name>MezbanAdmin</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
