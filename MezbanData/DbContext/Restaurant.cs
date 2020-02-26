@@ -45,7 +45,7 @@ namespace MezbanData.DbContext
         public Nullable<decimal> MinPrice { get; set; }
         public string EstimateTimeDelivery { get; set; }
         public long SeqId { get; set; }
-        public Nullable<bool> Status { get; set; }
+        public int Status { get; set; }
         public string Name { get; set; }
         public string ShipArea { get; set; }
         public Nullable<long> DistrictId { get; set; }

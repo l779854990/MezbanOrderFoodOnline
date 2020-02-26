@@ -61,6 +61,7 @@
     <Compile Include="Repository\Implements\AspNetRoleRepository.cs" />
     <Compile Include="Repository\Implements\AspNetUserRepository.cs" />
     <Compile Include="Repository\Implements\LanguageRepository.cs" />
+    <Compile Include="Repository\Implements\RestaurantRepository.cs" />
     <Compile Include="Repository\Interfaces\IAspNetRoleRepository.cs" />
     <Compile Include="Repository\Interfaces\IAspNetUserRepository.cs" />
     <Compile Include="Repository\Interfaces\ILanguageRepository.cs" />

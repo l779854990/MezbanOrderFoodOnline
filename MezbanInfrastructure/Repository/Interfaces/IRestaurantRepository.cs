@@ -2,7 +2,7 @@
 
 namespace MezbanInfrastructure.Repository.Interfaces
 {
-    interface IRestaurantRepository : IBaseRepository<Restaurant>
+    public interface IRestaurantRepository : IBaseRepository<Restaurant>
     {
     }
 }

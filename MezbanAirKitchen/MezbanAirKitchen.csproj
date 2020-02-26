@@ -205,6 +205,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\RestaurantController.cs" />
     <Compile Include="Areas\Owner\Controllers\HomeController.cs" />
     <Compile Include="Areas\Owner\OwnerAreaRegistration.cs" />
     <Compile Include="Authentication\CustomAuthorize.cs" />
@@ -1961,6 +1962,7 @@
     <Content Include="Areas\Owner\Views\Home\About.cshtml" />
     <Content Include="Areas\Owner\Views\Home\Contact.cshtml" />
     <Content Include="Areas\Owner\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Restaurant\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

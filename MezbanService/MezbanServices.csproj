@@ -57,11 +57,22 @@
     <Compile Include="Implements\AspNetRoleService.cs" />
     <Compile Include="Implements\AspNetUserService.cs" />
     <Compile Include="Implements\BaseService.cs" />
+    <Compile Include="Implements\CategoryService.cs" />
+    <Compile Include="Implements\CommentService.cs" />
     <Compile Include="Implements\LanguageService.cs" />
+    <Compile Include="Implements\PromotionService.cs" />
+    <Compile Include="Implements\RestaurantService.cs" />
+    <Compile Include="Implements\VoucherService.cs" />
     <Compile Include="Interfaces\IAspNetRoleService.cs" />
     <Compile Include="Interfaces\IAspNetUserService.cs" />
     <Compile Include="Interfaces\IBaseService.cs" />
+    <Compile Include="Interfaces\ICategoryService.cs" />
+    <Compile Include="Interfaces\ICommentService.cs" />
     <Compile Include="Interfaces\ILanguageService.cs" />
+    <Compile Include="Interfaces\IMenuService.cs" />
+    <Compile Include="Interfaces\IPromotionService.cs" />
+    <Compile Include="Interfaces\IRestaurantService.cs" />
+    <Compile Include="Interfaces\IVoucherService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

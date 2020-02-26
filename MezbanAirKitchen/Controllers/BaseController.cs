@@ -1,6 +1,4 @@
 ﻿using log4net;
-using MezbanAirKitchen.Authentication;
-using MezbanAirKitchen.Models;
 using MezbanService.Interfaces;
 using Microsoft.AspNet.Identity;
 using System.Configuration;

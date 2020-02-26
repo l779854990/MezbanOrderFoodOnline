@@ -378,7 +378,7 @@
           <Property Name="MinPrice" Type="decimal" Precision="10" Scale="2" />
           <Property Name="EstimateTimeDelivery" Type="nvarchar" MaxLength="255" />
           <Property Name="SeqId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Status" Type="bit" />
+          <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" />
           <Property Name="ShipArea" Type="ntext" />
           <Property Name="DistrictId" Type="bigint" />
@@ -1335,6 +1335,7 @@
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="PersonId" Type="Guid" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="MezbanAirKitchenModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="MezbanAirKitchenModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="Person" Relationship="MezbanAirKitchenModel.FK_AspNetUsers_Persons" FromRole="AspNetUser" ToRole="Person" />
@@ -1343,7 +1344,6 @@
           <NavigationProperty Name="Ratings" Relationship="MezbanAirKitchenModel.FK_Rating_AspNetUsers" FromRole="AspNetUser" ToRole="Rating" />
           <NavigationProperty Name="UserRestaurants" Relationship="MezbanAirKitchenModel.FK_User_UserRestaurant" FromRole="AspNetUser" ToRole="UserRestaurant" />
           <NavigationProperty Name="AspNetRoles" Relationship="MezbanAirKitchenModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -1708,7 +1708,7 @@
           <Property Name="MinPrice" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="EstimateTimeDelivery" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="SeqId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="Boolean" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ShipArea" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DistrictId" Type="Int64" />
