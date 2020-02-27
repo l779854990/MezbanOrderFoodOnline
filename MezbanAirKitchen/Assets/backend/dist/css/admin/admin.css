@@ -1,4 +1,8 @@
-﻿.nav-orange {
+﻿body {
+    font-family: 'Roboto';
+    font-weight: 500;
+}
+.nav-orange {
     background-color: #FF5722;
 }
 .nav-green {
@@ -21,4 +25,25 @@
 }
 .btn:hover{
     color: #fff !important;
+}
+.table-options {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    float: right;
+}
+.separator-dashed {
+    margin: 1rem 0;
+    border-bottom: 1px dashed #ebedf2;
+    height: 0;
+}
+.btn, a {
+    font-size: .9rem !important;
+}
+.box {
+    padding: 1rem;
+}
+.filter-label h2 {
+    font-size: 1rem;
+    color: #74788d;
 }

@@ -15,5 +15,13 @@ namespace MezbanAirKitchen.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult Add()
+        {
+            return View();
+        }
+        public ActionResult Edit()
+        {
+            return View();
+        }
     }
 }
