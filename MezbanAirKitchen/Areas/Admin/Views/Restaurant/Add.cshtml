@@ -3,6 +3,49 @@
     ViewBag.Title = "Add";
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
+<link href="~/Assets/backend/dist/css/admin/tab-bootstap.css" rel="stylesheet" />
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Create Restaurant</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="Admin/Home"></a><i class="fas fa-home"></i></li>
+                    <li class="breadcrumb-item">Restaurant</li>
+                    <li class="breadcrumb-item active">Create</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 ">
+                            <nav>
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active col-6" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                                    <a class="nav-item nav-link col-6" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                                </div>
+                            </nav>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    1
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                        2
+                                    </div>
+                                </div>
 
-<h2>Add</h2>
-
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

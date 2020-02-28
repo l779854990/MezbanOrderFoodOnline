@@ -14,7 +14,8 @@
             'style': 'multi'
         },
         "searching": false,
-        'order': [[1, 'asc']]
+        'order': [[1, 'asc']],
+        "autoWidth": false
     });
     $(".filterState").on("click", function () {
         filterState = !filterState;
