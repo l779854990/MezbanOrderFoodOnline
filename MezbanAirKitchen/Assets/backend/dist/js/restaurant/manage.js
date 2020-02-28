@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    var filterState = false;
     $("#restaurantTable").DataTable({
         'ajax': '',
         'columnDefs': [
@@ -15,4 +16,16 @@
         "searching": false,
         'order': [[1, 'asc']]
     });
+    $(".filterState").on("click", function () {
+        filterState = !filterState;
+        if (filterState) {
+            $(".formFilter").toggle("slow");
+            $(".arrow-down").show();
+            $(".arrow-up").hide();
+        } else {
+            $(".formFilter").toggle("slow");
+            $(".arrow-up").show()
+            $(".arrow-down").hide();
+        }
+    })
 });

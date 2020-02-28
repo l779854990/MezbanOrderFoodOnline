@@ -47,3 +47,6 @@
     font-size: 1rem;
     color: #74788d;
 }
+.hidden {
+    display : none;
+}
