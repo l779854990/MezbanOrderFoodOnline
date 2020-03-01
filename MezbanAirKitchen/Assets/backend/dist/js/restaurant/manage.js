@@ -1,4 +1,7 @@
-﻿$(document).ready(function () {
+﻿/// <reference path="tel-input.js" />
+/// <reference path="tel-input.js" />
+/// <reference path="tel-input.js" />
+$(document).ready(function () {
     var filterState = false;
     $("#restaurantTable").DataTable({
         'ajax': '',

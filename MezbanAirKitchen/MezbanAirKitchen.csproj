@@ -203,6 +203,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\RestaurantController.cs" />
@@ -229,6 +230,7 @@
     <Content Include="Assets\backend\dist\css\adminlte.css" />
     <Content Include="Assets\backend\dist\css\adminlte.min.css" />
     <Content Include="Assets\backend\dist\css\admin\admin.css" />
+    <Content Include="Assets\backend\dist\css\admin\restaurant.css" />
     <Content Include="Assets\backend\dist\css\admin\tab-bootstap.css" />
     <Content Include="Assets\backend\dist\css\alt\adminlte.components.css" />
     <Content Include="Assets\backend\dist\css\alt\adminlte.components.min.css" />
@@ -281,6 +283,7 @@
     <Content Include="Assets\backend\dist\js\pages\dashboard.js" />
     <Content Include="Assets\backend\dist\js\pages\dashboard2.js" />
     <Content Include="Assets\backend\dist\js\pages\dashboard3.js" />
+    <Content Include="Assets\backend\dist\js\restaurant\form.js" />
     <Content Include="Assets\backend\dist\js\restaurant\manage.js" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
@@ -1101,6 +1104,18 @@
     <Content Include="Assets\backend\plugins\inputmask\min\inputmask\inputmask.numeric.extensions.min.js" />
     <Content Include="Assets\backend\plugins\inputmask\min\inputmask\jquery.inputmask.min.js" />
     <Content Include="Assets\backend\plugins\inputmask\min\jquery.inputmask.bundle.min.js" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\css\demo.css" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\css\intlTelInput.css" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\css\intlTelInput.min.css" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\img\flags%402x.png" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\img\flags.png" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\js\data.js" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\js\data.min.js" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\js\intlTelInput-jquery.js" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\js\intlTelInput-jquery.min.js" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\js\intlTelInput.js" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\js\intlTelInput.min.js" />
+    <Content Include="Assets\backend\plugins\international-telephone-input\js\utils.js" />
     <Content Include="Assets\backend\plugins\ion-rangeslider\css\ion.rangeSlider.css" />
     <Content Include="Assets\backend\plugins\ion-rangeslider\css\ion.rangeSlider.min.css" />
     <Content Include="Assets\backend\plugins\ion-rangeslider\js\ion.rangeSlider.js" />
@@ -1971,6 +1986,7 @@
     <Content Include="Areas\Admin\Views\Restaurant\Add.cshtml" />
     <Content Include="Areas\Admin\Views\Restaurant\_FormTable.cshtml" />
     <Content Include="Areas\Admin\Views\Restaurant\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
