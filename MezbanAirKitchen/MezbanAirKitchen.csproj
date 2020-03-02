@@ -230,6 +230,8 @@
     <Content Include="Assets\backend\dist\css\adminlte.css" />
     <Content Include="Assets\backend\dist\css\adminlte.min.css" />
     <Content Include="Assets\backend\dist\css\admin\admin.css" />
+    <Content Include="Assets\backend\dist\css\admin\category.css" />
+    <Content Include="Assets\backend\dist\css\admin\common.css" />
     <Content Include="Assets\backend\dist\css\admin\restaurant.css" />
     <Content Include="Assets\backend\dist\css\admin\tab-bootstap.css" />
     <Content Include="Assets\backend\dist\css\alt\adminlte.components.css" />
