@@ -3,5 +3,142 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Category Management</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="../Restaurant/Admin/Home"></a><i class="fas fa-home"></i></li>
+                    <li class="breadcrumb-item active">Category</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="box">
+                    <div class="filter-label">
+                        <h2>
+                            <i class="fas fa-filter mr-1"></i>
+                            Filter By
+                            <i class="fas ml-1 fa-caret-down hidden filterState arrow-down"></i>
+                            <i class="fas ml-1 fa-caret-up filterState arrow-up"></i>
+                        </h2>
+                        <div class="separator-dashed"></div>
+                    </div>
+                    <form action="/" method="post" class="hidden formFilter">
+                        <div class="filter-section" id="searchForm" style="">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Restaurant Name:</label>
+                                        <input class="form-control ng-untouched ng-pristine ng-valid" name="firstName" type="text">
+                                    </div>
+                                </div><div class="col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Address:</label>
+                                        <input class="form-control ng-untouched ng-pristine ng-valid" name="surName" type="text">
+                                    </div>
+                                </div><div class="col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Sở Hữu:</label>
+                                        <input class="form-control ng-untouched ng-pristine ng-valid" name="email" type="text">
+                                    </div>
+                                </div><div class="col-12">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-search mr-1"></i> Search
+                                    </button>
+                                    <button class="btn btn-light ml-2" type="button">
+                                        <i class="fas fa-times mr-1"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="separator-dashed">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="table-options">
+                    <a href="/Admin/Restaurant/Add" class="btn btn-primary mr-2"><i class="fas fa-plus"></i> Create New</a>
+                    <a href="" class="btn btn-danger mr-4"><i class="far fa-trash-alt"></i> Delete All</a>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="categoryTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="checkbox-primary"></th>
+                                <th>Code</th>
+                                <th>Tilte</th>
+                                <th>Miêu Tả</th>
+                                <th>Trạng Thái</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td>Platform(s)</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <a href="" class="btn custom-btn custom-edit btn-circle"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td>Platform(s)</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <a href="" class="btn custom-btn custom-edit btn-circle"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td>Platform(s)</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <a href="" class="btn custom-btn custom-edit btn-circle"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td>Platform(s)</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <a href="" class="btn custom-btn custom-edit btn-circle"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+@section scripts
+{
+    <script src="~/Assets/backend/dist/js/category/manage.js"></script>
+}

@@ -284,6 +284,7 @@
     <Content Include="Assets\backend\dist\js\pages\dashboard2.js" />
     <Content Include="Assets\backend\dist\js\pages\dashboard3.js" />
     <Content Include="Assets\backend\dist\js\restaurant\form.js" />
+    <Content Include="Assets\backend\dist\js\category\manage.js" />
     <Content Include="Assets\backend\dist\js\restaurant\manage.js" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />

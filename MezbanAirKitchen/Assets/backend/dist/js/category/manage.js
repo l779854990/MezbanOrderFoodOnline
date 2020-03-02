@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     var filterState = false;
-    $("#restaurantTable").DataTable({
+    $("#categoryTable").DataTable({
         'ajax': '',
         'columnDefs': [
             {

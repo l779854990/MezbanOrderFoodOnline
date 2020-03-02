@@ -65,7 +65,7 @@
           <Property Name="CategoryId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="SeqId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ContendifinitonId" Type="bigint" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="Code" Type="varchar" MaxLength="255" />
           <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="SortOder" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="255" Nullable="false" />
@@ -378,7 +378,7 @@
           <Property Name="MinPrice" Type="decimal" Precision="10" Scale="2" />
           <Property Name="EstimateTimeDelivery" Type="nvarchar" MaxLength="255" />
           <Property Name="SeqId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" />
           <Property Name="ShipArea" Type="ntext" />
           <Property Name="DistrictId" Type="bigint" />
@@ -468,18 +468,6 @@
           <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <Association Name="FK_AspNetUsers_Persons">
-          <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Persons">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="AspNetUsers">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Category_RestaurantCategory">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="RestaurantCategory" Type="Self.RestaurantCategory" Multiplicity="*" />
@@ -956,10 +944,6 @@
           <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VoucherLineItem" EntityType="Self.VoucherLineItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zone" EntityType="Self.Zone" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AspNetUsers_Persons" Association="Self.FK_AspNetUsers_Persons">
-            <End Role="Persons" EntitySet="Persons" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
           <AssociationSet Name="FK_Category_RestaurantCategory" Association="Self.FK_Category_RestaurantCategory">
             <End Role="Category" EntitySet="Category" />
             <End Role="RestaurantCategory" EntitySet="RestaurantCategory" />
@@ -1152,10 +1136,6 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_AspNetUsers_Persons" Association="MezbanAirKitchenModel.FK_AspNetUsers_Persons">
-            <End Role="Person" EntitySet="Persons" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
           <AssociationSet Name="FK_Favories_AspNetUsers" Association="MezbanAirKitchenModel.FK_Favories_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Favory" EntitySet="Favories" />
@@ -1338,7 +1318,6 @@
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="MezbanAirKitchenModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="MezbanAirKitchenModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-          <NavigationProperty Name="Person" Relationship="MezbanAirKitchenModel.FK_AspNetUsers_Persons" FromRole="AspNetUser" ToRole="Person" />
           <NavigationProperty Name="Favories" Relationship="MezbanAirKitchenModel.FK_Favories_AspNetUsers" FromRole="AspNetUser" ToRole="Favory" />
           <NavigationProperty Name="Orders" Relationship="MezbanAirKitchenModel.FK_Order_AspNetUsers" FromRole="AspNetUser" ToRole="Order" />
           <NavigationProperty Name="Ratings" Relationship="MezbanAirKitchenModel.FK_Rating_AspNetUsers" FromRole="AspNetUser" ToRole="Rating" />
@@ -1352,7 +1331,7 @@
           <Property Name="CategoryId" Type="Guid" Nullable="false" />
           <Property Name="SeqId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ContendifinitonId" Type="Int64" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="SortOder" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -1617,7 +1596,6 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="PhotoUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="MezbanAirKitchenModel.FK_AspNetUsers_Persons" FromRole="Person" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Promotion">
           <Key>
@@ -1708,7 +1686,7 @@
           <Property Name="MinPrice" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="EstimateTimeDelivery" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="SeqId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ShipArea" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DistrictId" Type="Int64" />
@@ -1841,18 +1819,6 @@
             </Principal>
             <Dependent Role="AspNetUserLogin">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AspNetUsers_Persons">
-          <End Type="MezbanAirKitchenModel.Person" Role="Person" Multiplicity="1" />
-          <End Type="MezbanAirKitchenModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="AspNetUser">
-              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2306,7 +2272,7 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="SortOder" ColumnName="SortOder" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="ContendifinitonId" ColumnName="ContendifinitonId" />
                 <ScalarProperty Name="SeqId" ColumnName="SeqId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />

@@ -23,7 +23,7 @@ namespace MezbanData.DbContext
         public System.Guid CategoryId { get; set; }
         public long SeqId { get; set; }
         public long ContendifinitonId { get; set; }
-        public string Title { get; set; }
+        public string Code { get; set; }
         public bool Status { get; set; }
         public int SortOder { get; set; }
         public string CreatedBy { get; set; }
