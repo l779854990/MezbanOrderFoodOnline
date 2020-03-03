@@ -204,9 +204,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmailTemplateController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\PromotionController.cs" />
     <Compile Include="Areas\Admin\Controllers\RestaurantController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TypeOfCuisineController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Owner\Controllers\HomeController.cs" />
     <Compile Include="Areas\Owner\OwnerAreaRegistration.cs" />
     <Compile Include="Authentication\CustomAuthorize.cs" />
@@ -288,6 +294,7 @@
     <Content Include="Assets\backend\dist\js\restaurant\form.js" />
     <Content Include="Assets\backend\dist\js\category\manage.js" />
     <Content Include="Assets\backend\dist\js\restaurant\manage.js" />
+    <Content Include="Assets\backend\dist\js\user\manage.js" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
@@ -1990,6 +1997,12 @@
     <Content Include="Areas\Admin\Views\Restaurant\_FormTable.cshtml" />
     <Content Include="Areas\Admin\Views\Restaurant\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\EmailTemplate\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Promotion\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeOfCuisine\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Comment\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

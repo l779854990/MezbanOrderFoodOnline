@@ -5,25 +5,22 @@
 }
 @section Styles{
     <link href="~/Assets/backend/dist/css/admin/common.css" rel="stylesheet" />
-    <link href="~/Assets/backend/dist/css/admin/category.css" rel="stylesheet" />
 }
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h2 class="font-weight-bold">Category Management</h2>
+                <h2 class="font-weight-bold">User Management</h2>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="../Restaurant/Admin/Home"></a><i class="fas fa-home"></i></li>
-                    <li class="breadcrumb-item active">Category</li>
+                    <li class="breadcrumb-item"><a href="/Admin/Home"></a><i class="fas fa-home"></i></li>
+                    <li class="breadcrumb-item active">User</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
-
-<!-- Main content -->
 <section class="content">
     <div class="row">
         <div class="col-12">
@@ -43,17 +40,20 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-4">
                                     <div class="form-group">
-                                        <label>Category Name:</label>
+                                        <label>Restaurant Name:</label>
                                         <input class="form-control ng-untouched ng-pristine ng-valid" name="firstName" type="text">
                                     </div>
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-lg-4">
+                                </div><div class="col-sm-12 col-md-12 col-lg-4">
                                     <div class="form-group">
-                                        <label>Category Code:</label>
+                                        <label>Address:</label>
                                         <input class="form-control ng-untouched ng-pristine ng-valid" name="surName" type="text">
                                     </div>
-                                </div>
-                                <div class="col-12">
+                                </div><div class="col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Sở Hữu:</label>
+                                        <input class="form-control ng-untouched ng-pristine ng-valid" name="email" type="text">
+                                    </div>
+                                </div><div class="col-12">
                                     <button class="btn btn-primary btn-masterial" type="submit">
                                         <i class="fas fa-search mr-1"></i> Search
                                     </button>
@@ -73,60 +73,50 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="categoryTable" class="table table-bordered table-striped">
+                    <table id="userTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th class="checkbox-primary"></th>
-                                <th>Code</th>
-                                <th>Tilte</th>
-                                <th>Miêu Tả</th>
+                                <th>Fisrt Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
                                 <th>Trạng Thái</th>
-                                <th>Option</th>
+                                <th class="text-center">Edit</th>
+                                <th class="text-center">Active/Deactive</th>
+                                <th class="text-center">Reset Password</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td></td>
-                                <td>Rendering engine</td>
+                                <td><a href="#">Rendering engine</a></td>
                                 <td>Browser</td>
                                 <td>Platform(s)</td>
                                 <td><span class="badge p-2 badge-success">Active</span></td>
                                 <td class="text-center">
                                     <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn custom-btn ml-3 btn-yellow btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="fas fa-lock"></i></button>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="fas fa-key"></i></button>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td>Rendering engine</td>
+                                <td><a href="#">Rendering engine</a></td>
                                 <td>Browser</td>
                                 <td>Platform(s)</td>
                                 <td><span class="badge p-2 badge-success">Active</span></td>
                                 <td class="text-center">
                                     <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Rendering engine</td>
-                                <td>Browser</td>
-                                <td>Platform(s)</td>
-                                <td><span class="badge p-2 badge-success">Active</span></td>
                                 <td class="text-center">
-                                    <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                    <button class="btn custom-btn ml-3 btn-yellow btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="fas fa-lock"></i></button>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Rendering engine</td>
-                                <td>Browser</td>
-                                <td>Platform(s)</td>
-                                <td><span class="badge p-2 badge-success">Active</span></td>
                                 <td class="text-center">
-                                    <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="fas fa-key"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -276,5 +266,6 @@
 </div>
 @section scripts
 {
-    <script src="~/Assets/backend/dist/js/category/manage.js"></script>
+    <script src="~/Assets/backend/dist/js/user/manage.js"></script>
 }
+
