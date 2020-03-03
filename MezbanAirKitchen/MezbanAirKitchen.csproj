@@ -238,6 +238,7 @@
     <Content Include="Assets\backend\dist\css\admin\admin.css" />
     <Content Include="Assets\backend\dist\css\admin\category.css" />
     <Content Include="Assets\backend\dist\css\admin\common.css" />
+    <Content Include="Assets\backend\dist\css\admin\personal-info.css" />
     <Content Include="Assets\backend\dist\css\admin\restaurant.css" />
     <Content Include="Assets\backend\dist\css\admin\tab-bootstap.css" />
     <Content Include="Assets\backend\dist\css\alt\adminlte.components.css" />
@@ -295,6 +296,7 @@
     <Content Include="Assets\backend\dist\js\category\manage.js" />
     <Content Include="Assets\backend\dist\js\restaurant\manage.js" />
     <Content Include="Assets\backend\dist\js\user\manage.js" />
+    <Content Include="Assets\backend\image\logo-user.png" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
@@ -2003,6 +2005,8 @@
     <Content Include="Areas\Admin\Views\TypeOfCuisine\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Comment\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Info.cshtml" />
+    <Content Include="Areas\Admin\Views\Restaurant\Setting.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

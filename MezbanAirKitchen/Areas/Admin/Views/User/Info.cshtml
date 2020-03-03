@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+@section Styles{
+    <link href="~/Assets/backend/dist/css/admin/common.css" rel="stylesheet" />
+    <link href="~/Assets/backend/dist/css/admin/personal-info.css" rel="stylesheet" />
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h2 class="font-weight-bold">Personal Information</h2>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Home"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="/Admin/User/">User</a></li>
+                    <li class="breadcrumb-item active">Personal Information</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<div class="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="personal-info-left">
+                        <div class="personal-info-head">
+                            <div class="personal-info-avatar">
+                                <img src="~/Assets/backend/image/logo-user.png" />
+                            </div>
+                            <div class="personal-info-content">
+                                <div class="personal-info-section">
+                                    <a class="personal-info-username font-weight-bold"> Mezban Admin </a>
+                                    <span class="personal-info-subtitle"> Administrator </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="personal-info-body">
+                            <div class="personal-info-content">
+                                <div class="personal-info-info">
+                                    <span class="font-weight-bold">Email:</span><a>admin@mezban.com</a>
+                                </div>
+                                <div class="personal-info-info">
+                                    <span class="font-weight-bolder">Phone:</span><a>0123456789</a>
+                                </div>
+                            </div>
+                            <div _ngcontent-mhs-c174="" class="personal-info-items">
+                                <a class="active" href="/personal-information"><i class="fas fa-user mr-2"></i> Personal Information </a>
+                                <a href="/change-password"><i class="fas fa-key mr-2"></i> Change password </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h4 class="font-weight-bold">Personal Information</h4>
+                </div>
+                <form>
+                    <div class="card-body">
+                        <div class="personal-info-right">
+                            <div class="row">
+                                <label class="col-lg-3"></label>
+                                <div class="col-lg-6">
+                                    <h5>Custom Info</h5>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 text-right">Avatar</label>
+                                <div class="col-lg-6">
+                                    <div class="personal-logo">
+                                        <div class="personal-logo-holder">
+                                            <img src="~/Assets/backend/image/logo-user.png" />
+                                        </div>
+                                        <label class="personal-logo-upload">
+                                            <i class="fas fa-pencil-alt"></i>
+                                            <input type="hidden" name="name" value="" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 text-right">First Name<span class="required"></span></label>
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-tie"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 text-right">Last Name<span class="required"></span></label>
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-tie"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-lg-3"></label>
+                                <div class="col-lg-6">
+                                    <h5>Contact Info</h5>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 text-right">Email</label>
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="far fa-envelope"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 text-right">Phone</label>
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-9">
+                                <button class="btn btn-violet btn-masterial">Save</button>
+                                <button class="btn btn-yellow btn-masterial">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

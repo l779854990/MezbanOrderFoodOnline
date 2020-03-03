@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Setting";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+@section Styles{
+    <link href="~/Assets/backend/dist/css/admin/common.css" rel="stylesheet" />
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h4 class="font-weight-bold">Restaurants Settings - KFC</h4>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="Admin/Home"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="Admin/Restaurant">Restaurant</a></li>
+                    <li class="breadcrumb-item active">Restaurant Setting</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<div class="content">
+    <form action="/" method="post">
+        <div class="row">
+            <div class="col-sm-12 col-md-3 col-lg-3 text-center border-right">
+
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-5">
+                <div class="restaurant-info">
+                    <div class="text-center">
+                        <h6 class="text-center">Restaurant Info</h6>
+                    </div>
+                    <div class="restaurant-info-item">
+                        <div class="form-group row">
+                            <div class="form-group row">
+                                <label class="col-sm-4 pr-0 col-form-label">Milestone 3</label>
+                                <div class="col-sm-8 input-group">
+                                    <input type="text" class="form-control ng-pristine ng-valid ng-touched">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <label class="checkbox checkbox-single checkbox-success">
+                                                <input type="checkbox" name="milestoneCheck1" id="milestoneCheck1">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-4">
+
+            </div>
+        </div>
+    </form>
+</div>
+
