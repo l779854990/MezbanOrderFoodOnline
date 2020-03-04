@@ -1,4 +1,5 @@
-﻿$("#telephone").intlTelInput({
-    allowDropdown: true,
+﻿$(".telephone").intlTelInput({
+    allowDropdown: true
 });
-$(".owner").select2();
+$(".owner").select2({
+});

@@ -1,11 +1,17 @@
 ﻿*, :after, :before {
     box-sizing: border-box;
 }
+
 body {
     font-family: Poppins,sans-serif !important;
     color: #4c4c4c;
     font-size: .9rem !important;
 }
+
+input[type='search'], input[type='text'], select, textarea {
+    box-shadow: none !important;
+}
+
 a {
     font-size: .9rem !important;
     color: #007bff;
@@ -14,6 +20,7 @@ a {
     text-decoration: none !important;
     transition: all .2s ease;
 }
+
 .btn-circle {
     width: 40px;
     height: 40px;
@@ -23,26 +30,52 @@ a {
     font-size: 12px;
     line-height: 1.42857;
 }
+
 .required:before {
     content: "*";
     color: red;
     margin-left: 2px;
 }
+
 .btn-violet {
     background-color: #673ab7;
     color: #fff;
 }
+
 .btn-yellow {
     background-color: #ffc107;
     border-color: #ffc107;
     color: #000000;
 }
+
 .btn-masterial {
     box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
 }
-button.btn-default:hover{
-    color:#000000;
+
+button.btn-default:hover {
+    color: #000000;
 }
+
 .border-right {
     border-right: 1px solid #dee2e6 !important;
+}
+
+.select2-container {
+    width: 100% !important;
+}
+
+    .select2-container .select2-selection--single {
+        height: calc(2.25rem + 2px);
+        border: 1px solid #007bff !important;
+    }
+
+.select2-selection--multiple .select2-selection__choice {
+    background-color: #d81b60 !important;
+    border: 1px solid #d81b60 !important;
+}
+.select2-selection--multiple .select2-selection__choice__remove {
+    color: #dee2e6;
+}
+.select2-selection--multiple {
+    border-color: #007bff !important;
 }

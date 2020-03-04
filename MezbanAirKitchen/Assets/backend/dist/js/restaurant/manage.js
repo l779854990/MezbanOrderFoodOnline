@@ -17,16 +17,17 @@
         'order': [[1, 'asc']],
         "autoWidth": false
     });
-    $(".filterState").on("click", function () {
-        filterState = !filterState;
-        if (filterState) {
-            $(".formFilter").toggle("slow");
-            $(".arrow-down").show();
-            $(".arrow-up").hide();
-        } else {
-            $(".formFilter").toggle("slow");
-            $(".arrow-up").show()
-            $(".arrow-down").hide();
-        }
-    })
+    $(".filterState").on("click",
+        function() {
+            filterState = !filterState;
+            if (filterState) {
+                $(".formFilter").toggle("slow");
+                $(".arrow-down").show();
+                $(".arrow-up").hide();
+            } else {
+                $(".formFilter").toggle("slow");
+                $(".arrow-up").show()
+                $(".arrow-down").hide();
+            }
+        });
 });

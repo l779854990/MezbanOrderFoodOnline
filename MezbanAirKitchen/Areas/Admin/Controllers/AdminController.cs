@@ -4,7 +4,7 @@ using MezbanService.Interfaces;
 
 namespace MezbanAirKitchen.Areas.Admin.Controllers
 {
-    [CustomAuthorize]
+    //[CustomAuthorize]
     public class AdminController : BaseController
     {
         public AdminController(ILanguageService languageService, IAspNetUserService aspNetUserService) : base(languageService, aspNetUserService)
