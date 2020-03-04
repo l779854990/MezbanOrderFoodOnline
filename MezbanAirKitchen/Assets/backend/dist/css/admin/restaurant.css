@@ -1,1 +1,46 @@
-﻿
+﻿.box {
+    background: #fff;
+    border-radius: 4px;
+}
+.restaurant-logo {
+    position: relative;
+    display: inline-block;
+}
+.restaurant-logo-holder {
+    border: 3px solid #fff;
+    box-shadow: 0 0 13px 0 rgba(0,0,0,.1);
+    border-radius: 3px;
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    left: 30px;
+}
+.restaurant-logo-holder img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+.restaurant-logo-upload {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: -10px;
+    top: 25px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #00bcd4;
+    box-shadow: 0 0 13px 0 rgba(0,0,0,.1);
+    transition: all .3s;
+}
+.restaurant-logo-upload input{
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden;
+    opacity: 0;
+}

@@ -241,6 +241,8 @@
     <Content Include="Assets\backend\dist\css\admin\personal-info.css" />
     <Content Include="Assets\backend\dist\css\admin\restaurant.css" />
     <Content Include="Assets\backend\dist\css\admin\tab-bootstap.css" />
+    <Content Include="Assets\backend\dist\css\admin\tagsinput.css" />
+    <Content Include="Assets\backend\dist\js\restaurant\tagsinput.js" />
     <Content Include="Assets\backend\dist\css\alt\adminlte.components.css" />
     <Content Include="Assets\backend\dist\css\alt\adminlte.components.min.css" />
     <Content Include="Assets\backend\dist\css\alt\adminlte.core.css" />
@@ -295,6 +297,7 @@
     <Content Include="Assets\backend\dist\js\restaurant\form.js" />
     <Content Include="Assets\backend\dist\js\category\manage.js" />
     <Content Include="Assets\backend\dist\js\restaurant\manage.js" />
+    <Content Include="Assets\backend\dist\js\restaurant\restaurant-setting.js" />
     <Content Include="Assets\backend\dist\js\user\manage.js" />
     <Content Include="Assets\backend\image\logo-user.png" />
     <Content Include="Assets\backend\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />

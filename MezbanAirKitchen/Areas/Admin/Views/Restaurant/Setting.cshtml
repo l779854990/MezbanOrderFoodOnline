@@ -7,6 +7,8 @@
     <link href="~/Assets/backend/dist/css/admin/common.css" rel="stylesheet" />
     <link href="~/Assets/backend/dist/css/admin/restaurant.css" rel="stylesheet" />
     <link href="~/Assets/backend/plugins/international-telephone-input/css/intlTelInput.min.css" rel="stylesheet" />
+    @*<link href="~/Assets/backend/plugins/bootstrap-tag-input/bootstrap-tagsinput.css" rel="stylesheet" />*@
+    <link href="~/Assets/backend/dist/css/admin/tagsinput.css" rel="stylesheet" />
 }
 <section class="content-header">
     <div class="container-fluid">
@@ -28,44 +30,41 @@
     <form action="/" method="post">
         <div class="card shadow pt-4 pb-4">
             <div class="row mt-3 mb-3 mr-2">
-                <div class="col-sm-12 col-md-3 col-lg-3 text-center border-right">
+                <div class="col-sm-12 col-md-3 col-lg-2 text-center border-right">
+                    <div class="restaurant-logo">
+                        <h5 class="font-weight-bold text-center">Restaurant Logo</h5>
+                        <div class="restaurant-logo-holder">
+                            <img alt="Project Logo" class="img-fluid" src="https://elements-test-api.bmbsoft.com.vn:3334/UploadedFiles/Project/LoHoa_d2cd8c04-f110-4e28-86ab-46ccce54c083.png">
+                        </div>
+                        <label class="restaurant-logo-upload">
+                            <i class="fas fa-pencil-alt"></i>
+                            <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
+                        </label>
 
+                    </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-5 border-right">
                     <div class="restaurant-info">
-                        <div class="text-center">
-                            <h5 class="text-center font-weight-bold">Restaurant Info</h5>
-                        </div>
                         <div class="restaurant-info-item mt-3">
                             <div class="form-group row">
-                                <label class="col-sm-4 pr-0 col-form-label">Restaurant Name<span class="required"></span></label>
-                                <div class="col-sm-8 input-group">
+                                <label class="col-sm-4 pr-0 col-form-label">Name<span class="required"></span></label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control border border-primary">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-concierge-bell text-warning"></i>
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="restaurant-info-item">
                             <div class="form-group row">
-                                <label class="col-sm-4 pr-0 col-form-label">Restaurant Slogan</label>
-                                <div class="col-sm-8 input-group">
+                                <label class="col-sm-4 pr-0 col-form-label">Slogan</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control border border-primary">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-signature text-primary"></i>
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="restaurant-info-item">
                             <div class="form-group row">
                                 <label class="col-sm-4 pr-0 col-form-label">Owner<span class="required"></span></label>
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 input-group">
                                     <select class="owner form-control border border-primary">
                                         <option value="value">Nguyễn Minh Hiếu</option>
                                         <option>Sanzida laila Trisha</option>
@@ -98,63 +97,48 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-3 col-lg-4">
+                <div class="col-sm-12 col-md-12 col-lg-5">
                     <div class="restaurant-contact">
-                        <div class="text-center">
-                            <h5 class="text-center font-weight-bold">Restaurant Contact</h5>
-                        </div>
                         <div class="restaurant-contact-item mt-3">
                             <div class="form-group row">
-                                <label class="col-sm-4 pr-0 col-form-label">Phone Number 1</label>
+                                <label class="col-sm-4 pr-0 col-form-label">Phone Number</label>
                                 <div class="col-sm-8">
                                     <input type="tel" class="form-control border border-primary telephone" placeholder="">
                                 </div>
                             </div>
                         </div>
+                        <div class="restaurant-info-item">
+                            <div class="form-group row">
+                                <label class="col-sm-4 pr-0 col-form-label">Status</label>
+                                <div class="col-lg-8">
+                                    <select class="owner form-control border border-primary">
+                                        <option value="value">Open</option>
+                                        <option>Close</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="restaurant-contact-item">
                             <div class="form-group row">
-                                <label class="col-sm-4 pr-0 col-form-label">Phone Number 2</label>
+                                <label class="col-sm-4 pr-0 col-form-label">Latitude</label>
                                 <div class="col-sm-8">
-                                    <input type="tel" class="form-control border border-primary telephone" placeholder="">
+                                    <input type="text" class="form-control border border-primary">
                                 </div>
                             </div>
                         </div>
                         <div class="restaurant-contact-item">
                             <div class="form-group row">
-                                <label class="col-sm-4 pr-0 col-form-label">Restaurant Latitude</label>
-                                <div class="col-sm-8 input-group">
+                                <label class="col-sm-4 pr-0 col-form-label">Longitude</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control border border-primary">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-globe text-primary"></i>
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="restaurant-contact-item">
                             <div class="form-group row">
-                                <label class="col-sm-4 pr-0 col-form-label">Restaurant Longitude</label>
-                                <div class="col-sm-8 input-group">
+                                <label class="col-sm-4 pr-0 col-form-label">Address</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control border border-primary">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-globe text-primary"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="restaurant-contact-item">
-                            <div class="form-group row">
-                                <label class="col-sm-4 pr-0 col-form-label">Restaurant Address</label>
-                                <div class="col-sm-8 input-group">
-                                    <input type="text" class="form-control border border-primary">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-map-marker-alt text-danger"></i>
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -162,26 +146,115 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-4 col-lg-4">
-                <div class="card shadow"  style="height: 400px;">
-                    <h1>Album Ảnh</h1>
+        <div class="row flex-row">
+            <div class="col-6">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5 class="font-weight-bold">Time Delivery</h5>
+                    </div>
+                    <div class="card-body">
+                        <table id="timeTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-primary"></th>
+                                    <th class="text-center">Day</th>
+                                    <th class="text-center">Open</th>
+                                    <th class="text-center">Close</thclass="text-center">
+                                    <th class="text-center">Option</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>Monday</td>
+                                    <td>1:00</td>
+                                    <td>24:00</td>
+                                    <td class="text-center">
+                                        <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>Tuesday</td>
+                                    <td>1:00</td>
+                                    <td>24:00</td>
+                                    <td class="text-center">
+                                        <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>Wednesday</td>
+                                    <td>1:00</td>
+                                    <td>24:00</td>
+                                    <td class="text-center">
+                                        <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4 col-lg-4">
-                <div class="card shadow" style="height: 400px;">
-                    <h1>Mô Tả</h1>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 col-lg-4">
-                <div class="card shadow"  style="height: 400px;">
-                    <h1>Thời gian mở cửa</h1>
+            <div class="col-6">
+                <div class="card shadow">
+                    <div class="card-header"><h5 class="font-weight-bold">Area Delivery</h5></div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-sm-4 pr-0 col-form-label">City</label>
+                            <div class="col-lg-8">
+                                <select class="owner form-control border border-primary" multiple="multiple">
+                                    <option value="value">Nguyễn Minh Hiếu</option>
+                                    <option>Sanzida laila Trisha</option>
+                                    <option>Jinnat Raihun Sumi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 pr-0 col-form-label">Distric</label>
+                            <div class="col-lg-8">
+                                <select class="owner form-control border border-primary" multiple="multiple">
+                                    <option value="value">Nguyễn Minh Hiếu</option>
+                                    <option>Sanzida laila Trisha</option>
+                                    <option>Jinnat Raihun Sumi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 pr-0 col-form-label">Zone</label>
+                            <div class="col-lg-8">
+                                <select class="owner form-control border border-primary" multiple="multiple">
+                                    <option value="value">Nguyễn Minh Hiếu</option>
+                                    <option>Sanzida laila Trisha</option>
+                                    <option>Jinnat Raihun Sumi</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <h5>Key Search</h5>
+                        <div class="form-group">
+                            <input class="form-control" type="text" value="123,456,789" data-role="tagsinput" placeholder="Add tags" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-center box shadow mb-3 mt-3 ">
+            <button type="submit" class="btn btn-masterial btn-violet">
+                Save
+            </button>
+            <button class="btn btn-masterial btn-yellow ml-2">Cancel</button>
+        </div>
+
     </form>
 </div>
 @section scripts{
     <script src="~/Assets/backend/plugins/international-telephone-input/js/intlTelInput-jquery.min.js"></script>
     <script src="~/Assets/backend/dist/js/restaurant/form.js"></script>
+    <script src="~/Assets/backend/dist/js/restaurant/restaurant-setting.js"></script>
+    <script src="~/Assets/backend/dist/js/restaurant/tagsinput.js"></script>
 }
