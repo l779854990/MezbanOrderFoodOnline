@@ -12,12 +12,12 @@ namespace MezbanData.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class TypeOfCuisine
+    public partial class sysdiagram
     {
-        public long TypeCuisineId { get; set; }
-        public string NameVietNam { get; set; }
-        public string NameEnglish { get; set; }
-        public string Code { get; set; }
-        public bool Status { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

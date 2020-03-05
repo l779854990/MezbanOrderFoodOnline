@@ -1,5 +1,4 @@
 ﻿.box {
-    background: #fff;
     border-radius: 4px;
 }
 .restaurant-logo {
@@ -43,4 +42,7 @@
     height: 0 !important;
     overflow: hidden;
     opacity: 0;
+}
+.box button {
+    width: 10%;
 }

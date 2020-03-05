@@ -4,5 +4,277 @@
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 
-<h2>Index</h2>
 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+@section Styles{
+    <link href="~/Assets/backend/dist/css/admin/common.css" rel="stylesheet" />
+    <link href="~/Assets/backend/dist/css/admin/category.css" rel="stylesheet" />
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h2 class="font-weight-bold">Type Of Cuisine Management</h2>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="Admin/Home"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item active">Type Of Cuisine</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="box">
+                    <div class="filter-label">
+                        <h2>
+                            <i class="fas fa-filter mr-1"></i>
+                            Filter By
+                            <i class="fas ml-1 fa-caret-down hidden filterState arrow-down"></i>
+                            <i class="fas ml-1 fa-caret-up filterState arrow-up"></i>
+                        </h2>
+                        <div class="separator-dashed"></div>
+                    </div>
+                    <form action="/" method="post" class="hidden formFilter">
+                        <div class="filter-section" id="searchForm" style="">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Type Name:</label>
+                                        <input class="form-control ng-untouched ng-pristine ng-valid" name="firstName" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary btn-masterial" type="submit">
+                                        <i class="fas fa-search mr-1"></i> Search
+                                    </button>
+                                    <button class="btn btn-light ml-2 btn-masterial" type="button">
+                                        <i class="fas fa-times mr-1"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="separator-dashed">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="table-options">
+                    <a class="btn btn-primary mr-2 btn-masterial" data-toggle="modal" data-target="#modal-add" style="color: #fff;"><i class="fas fa-plus text-white"></i> Create New</a>
+                    <a href="" class="btn btn-danger mr-4 btn-masterial"><i class="far fa-trash-alt"></i> Delete All</a>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="typeTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="checkbox-primary"></th>
+                                <th>Code</th>
+                                <th>Name Viet Nam</th>
+                                <th>Name English</th>
+                                <th>Trạng Thái</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td>Platform(s)</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td>Platform(s)</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td>Platform(s)</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td>Platform(s)</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<div class="modal fade" id="modal-add">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/" method="post">
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-vi" role="tab">Vietnamese</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-en" role="tab">English</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-2">
+                        <div class="tab-pane active" id="tab-vi" role="tabpanel">
+                            <div class="form-group">
+                                <label>Tên<span class="required"></span></label>
+                                <input type="text" name="name" value="" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Miêu Tả</label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-en" role="tabpanel">
+                            <div class="form-group">
+                                <label>Name<span class="required"></span></label>
+                                <input type="text" name="name" value="" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Disciption</label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Code<span class="required"></span></label>
+                        <input type="text" name="name" value="" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <button type="submit" class="btn btn-violet btn-masterial">Save</button>
+                    <button type="button" class="btn btn-yellow btn-masterial" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-edit">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/" method="post">
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-vi-edit" role="tab">Vietnamese</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-en-edit" role="tab">English</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-2">
+                        <div class="tab-pane active" id="tab-vi-edit" role="tabpanel">
+                            <div class="form-group">
+                                <label>Tên<span class="required"></span></label>
+                                <input type="text" name="name" value="" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Miêu Tả</label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-en-edit" role="tabpanel">
+                            <div class="form-group">
+                                <label>Name<span class="required"></span></label>
+                                <input type="text" name="name" value="" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Disciption</label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Code<span class="required"></span></label>
+                        <input type="text" name="name" value="" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <button type="submit" class="btn btn-violet btn-masterial">Save</button>
+                    <button type="button" class="btn btn-yellow btn-masterial" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-delete">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/" method="post">
+                <div class="modal-body">
+                    <p class="text-center">Are you sure want to delete?</p>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <button type="submit" class="btn btn-danger btn-masterial">Yes</button>
+                    <button type="button" class="btn btn-default btn-masterial" data-dismiss="modal">No</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+@section scripts
+{
+    <script src="~/Assets/backend/dist/js/cuisine/manage.js"></script>
+}

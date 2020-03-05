@@ -53,11 +53,12 @@ namespace MezbanData.DbContext
         public virtual DbSet<RestaurantCategory> RestaurantCategories { get; set; }
         public virtual DbSet<Restaurant> Restaurants { get; set; }
         public virtual DbSet<RestaurantWorkTime> RestaurantWorkTimes { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tax> Taxes { get; set; }
-        public virtual DbSet<TypeOfCuisine> TypeOfCuisines { get; set; }
         public virtual DbSet<UserRestaurant> UserRestaurants { get; set; }
         public virtual DbSet<Voucher> Vouchers { get; set; }
         public virtual DbSet<VoucherLineItem> VoucherLineItems { get; set; }
         public virtual DbSet<Zone> Zones { get; set; }
+        public virtual DbSet<TypeOfCuisine> TypeOfCuisines { get; set; }
     }
 }

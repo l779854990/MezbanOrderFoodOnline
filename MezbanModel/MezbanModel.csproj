@@ -43,8 +43,15 @@
   <ItemGroup>
     <Compile Include="AspNetUser\UserRoleModel.cs" />
     <Compile Include="BaseViewModel.cs" />
+    <Compile Include="Category\CategoryCommandModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Restaurant\RestaurantListModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MezbanData\MezbanData.csproj">
+      <Project>{4DC74BAE-3AFA-4972-A8CE-D786B9E110C9}</Project>
+      <Name>MezbanData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,112 @@
+﻿<div class="modal fade" id="modal-add">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/" method="post" id="categoryFormAdd">
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-vi" role="tab">Vietnamese</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-en" role="tab">English</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-2">
+                        <div class="tab-pane active" id="tab-vi" role="tabpanel">
+                            <div class="form-group">
+                                <label>Tên<span class="required"></span></label>
+                                <input type="text" name="Name_Vi" value="" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Miêu Tả</label>
+                                <textarea class="form-control" name="Discription_Vi"></textarea>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-en" role="tabpanel">
+                            <div class="form-group">
+                                <label>Name<span class="required"></span></label>
+                                <input type="text" name="Name_En" value="" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Disciption</label>
+                                <textarea class="form-control" name="Discription_En"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Code<span class="required"></span></label>
+                        <input type="text" name="Code" value="" class="form-control"/>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <button type="button" class="btn btn-violet btn-masterial" id="saveCategory">Save</button>
+                    <button type="button" class="btn btn-yellow btn-masterial" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-edit">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/" method="post" id="categoryForm">
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-vi-edit" role="tab">Vietnamese</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-en-edit" role="tab">English</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-2">
+                        <div class="tab-pane active" id="tab-vi-edit" role="tabpanel">
+                            <div class="form-group">
+                                <label>Tên<span class="required"></span></label>
+                                <input type="text" name="" value="" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Miêu Tả</label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-en-edit" role="tabpanel">
+                            <div class="form-group">
+                                <label>Name<span class="required"></span></label>
+                                <input type="text" name="name" value="" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Disciption</label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Code<span class="required"></span></label>
+                        <input type="text" name="name" value="" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <button type="submit" class="btn btn-violet btn-masterial">Save</button>
+                    <button type="button" class="btn btn-yellow btn-masterial" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

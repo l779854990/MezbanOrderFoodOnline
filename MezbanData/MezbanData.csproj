@@ -152,6 +152,9 @@
     <Compile Include="DbContext\RestaurantWorkTime.cs">
       <DependentUpon>MezbanDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\sysdiagram.cs">
+      <DependentUpon>MezbanDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\Tax.cs">
       <DependentUpon>MezbanDbContext.tt</DependentUpon>
     </Compile>

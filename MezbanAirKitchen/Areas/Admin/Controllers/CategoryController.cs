@@ -13,9 +13,12 @@ namespace MezbanAirKitchen.Areas.Admin.Controllers
         {
             return View();
         }
-        public ActionResult Add()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(FormCollection fc)
         {
-            return View();
+
+            return Json(new { });
         }
         public ActionResult Edit()
         {

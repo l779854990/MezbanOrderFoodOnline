@@ -4,5 +4,122 @@
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 
-<h2>Index</h2>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+@section Styles{
+    <link href="~/Assets/backend/dist/css/admin/common.css" rel="stylesheet" />
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h2 class="font-weight-bold">Comment Management</h2>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Home"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item active">Comment</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="table-options mt-3">
+                    <a href="" class="btn btn-danger mr-4 btn-masterial"><i class="far fa-trash-alt"></i> Delete All</a>
+                </div>
+                <div class="separator-dashed">
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="commentTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="checkbox-primary"></th>
+                                <th>User</th>
+                                <th>Noi Dung</th>
+                                <th>Trạng Thái</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Rendering engine</td>
+                                <td>Browser</td>
+                                <td><span class="badge p-2 badge-success">Active</span></td>
+                                <td class="text-center">
+                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<div class="modal fade" id="modal-delete">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/" method="post">
+                <div class="modal-body">
+                    <p class="text-center">Are you sure want to delete?</p>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <button type="submit" class="btn btn-danger btn-masterial">Yes</button>
+                    <button type="button" class="btn btn-default btn-masterial" data-dismiss="modal">No</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+@section scripts
+{
+    <script src="~/Assets/backend/dist/js/comment/manage.js"></script>
+}

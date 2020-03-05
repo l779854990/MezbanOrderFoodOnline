@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     var filterState = false;
-    $("#restaurantTable").DataTable({
+    $("#commentTable").DataTable({
         'ajax': '',
         'columnDefs': [
             {
@@ -13,7 +13,7 @@
         'select': {
             'style': 'multi'
         },
-        "searching": false,
+        "searching": true,
         'order': [[1, 'asc']],
         "autoWidth": false
     });

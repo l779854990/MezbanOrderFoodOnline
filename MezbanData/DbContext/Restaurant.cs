@@ -32,7 +32,6 @@ namespace MezbanData.DbContext
         public System.Guid RestaurantId { get; set; }
         public string Address { get; set; }
         public string Avartar { get; set; }
-        public long ContendifinitionId { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public string CreatedBy { get; set; }
@@ -53,7 +52,6 @@ namespace MezbanData.DbContext
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual Contentdefinition Contentdefinition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Favory> Favories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -23,7 +23,6 @@ namespace MezbanData.DbContext
             this.Options = new HashSet<Option>();
             this.ContentEntries = new HashSet<ContentEntry>();
             this.Promotions = new HashSet<Promotion>();
-            this.Restaurants = new HashSet<Restaurant>();
         }
     
         public long ContentdefinitionId { get; set; }
@@ -41,7 +40,5 @@ namespace MezbanData.DbContext
         public virtual ICollection<ContentEntry> ContentEntries { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Promotion> Promotions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Restaurant> Restaurants { get; set; }
     }
 }
