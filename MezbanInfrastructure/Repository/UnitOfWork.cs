@@ -100,10 +100,5 @@ namespace MezbanInfrastructure.Repository
         {
             return _context.Database.BeginTransaction();
         }
-
-        DbContextTransaction IUnitOfWork.BeginTransaction()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

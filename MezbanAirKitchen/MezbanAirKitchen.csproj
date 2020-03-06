@@ -2170,6 +2170,10 @@
       <Project>{66d32cc5-7926-46f5-a6f6-50b5a51a169c}</Project>
       <Name>MezbanInfrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MezbanModel\MezbanModel.csproj">
+      <Project>{1BF1C0FF-073F-489F-A527-43C10EF94A2C}</Project>
+      <Name>MezbanModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MezbanService\MezbanServices.csproj">
       <Project>{9db4be0b-e175-46e4-8155-b59b4d5ba28c}</Project>
       <Name>MezbanServices</Name>

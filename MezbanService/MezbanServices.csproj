@@ -79,6 +79,10 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MezbanCommon\MezbanCommon.csproj">
+      <Project>{D4B1D5EE-94AE-411E-8A96-35C719DDED45}</Project>
+      <Name>MezbanCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MezbanData\MezbanData.csproj">
       <Project>{4DC74BAE-3AFA-4972-A8CE-D786B9E110C9}</Project>
       <Name>MezbanData</Name>

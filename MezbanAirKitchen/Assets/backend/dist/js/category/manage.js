@@ -18,7 +18,7 @@
         "autoWidth": false
     });
     $(".filterState").on("click",
-        function() {
+        function () {
             filterState = !filterState;
             if (filterState) {
                 $(".formFilter").toggle("slow");
@@ -31,16 +31,22 @@
             }
         });
     $("#saveCategory").on("click",
-        function() {
-            const form = $("#categoryFormAdd").serialize();
+        function () {
+            const model = {
+                Code: $("#Code").val(),
+                NameVi: $("#NameVi").val(),
+                DiscriptionVi: $("#DiscriptionVi").val(),
+                NameEn: $("#NameEn").val(),
+                DiscriptionEn: $("#DiscriptionEn").val(),
+                SortOrder: $("#SortOrder").val(),
+                Status: $("#Status").val()
+            }
             $.ajax({
                 type: 'POST',
                 url: "/Admin/Category/Add",
-                header: {
-                    __RequestVerificationToken: window.getToken(),
-                },
                 data: {
-                    form
+                    __RequestVerificationToken: window.getToken(),
+                    model
                 },
                 dataType: 'json',
                 success: function (data) {

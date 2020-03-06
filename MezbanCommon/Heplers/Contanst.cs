@@ -9,5 +9,14 @@
             public const string OWNER = "Owner";
             public const string EMPLOYEE = "Employee";
         }
+        public class StringMessage
+        {
+            public const string AddSuccess = "{0} is created successfuly!";
+        }
+
+        public class TableName
+        {
+            public const string Category = "Category";
+        }
     }
 }

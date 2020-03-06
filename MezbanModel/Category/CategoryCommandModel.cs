@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MezbanData.DbContext;
 
 namespace MezbanModel.Category
 {
     public class CategoryCommandModel
     {
+        public Guid CategoryId { get; set; }
         public string Code { get; set; }
         public int SortOrder { get; set; }
-        public long ContentDefinitionId { get; set; }
-        public IList<Language> Languages { get; set; }
-        public Contentdefinition ContentDefinition { get; set; }
+        public string NameVi { get; set; }
+        public string DiscriptionVi { get; set; }
+        public string NameEn { get; set; }
+        public string DiscriptionEn { get; set; }
+        public bool Status { get; set; }
     }
 }
