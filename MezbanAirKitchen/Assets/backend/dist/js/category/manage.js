@@ -30,23 +30,37 @@
                 $(".arrow-down").hide();
             }
         });
+    $.fn.serializeObject = function () {
+        let o = {};
+        let a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                } o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
     $("#saveCategory").on("click",
         function () {
-            const model = {
-                Code: $("#Code").val(),
-                NameVi: $("#NameVi").val(),
-                DiscriptionVi: $("#DiscriptionVi").val(),
-                NameEn: $("#NameEn").val(),
-                DiscriptionEn: $("#DiscriptionEn").val(),
-                SortOrder: $("#SortOrder").val(),
-                Status: $("#Status").val()
-            }
+            //let formData = new FormData();
+            //formData.append('Code', $("#Code").val());
+            //formData.append('NameVi', $("#NameVi").val());
+            //formData.append('DiscriptionVi', $("#DiscriptionVi").val());
+            //formData.append('NameEn', $("#NameEn").val());
+            //formData.append('DiscriptionEn', $("#DiscriptionEn").val());
+            //formData.append('SortOrder', $("#SortOrder").val());
+            //formData.append('Status', $("#Status").val());
+            let formData = $('#categoryFormAdd').serializeObject();
             $.ajax({
                 type: 'POST',
                 url: "/Admin/Category/Add",
                 data: {
                     __RequestVerificationToken: window.getToken(),
-                    model
+                    formData
                 },
                 dataType: 'json',
                 success: function (data) {
@@ -57,4 +71,5 @@
             });
 
         });
+   
 });

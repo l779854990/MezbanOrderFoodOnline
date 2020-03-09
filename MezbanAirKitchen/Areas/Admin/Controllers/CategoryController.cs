@@ -7,6 +7,7 @@ using MezbanCommon.Heplers;
 using MezbanData.DbContext;
 using MezbanModel.Category;
 using Microsoft.Owin.Security.Provider;
+using System.Linq;
 
 namespace MezbanAirKitchen.Areas.Admin.Controllers
 {
@@ -23,13 +24,11 @@ namespace MezbanAirKitchen.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(CategoryCommandModel model)
+        public ActionResult Add(CategoryCommandModel model,FormCollection formData)
         {
-            var category = MapEntity(model, null);
-            category.CreatedDate = DateTime.Now;
-            category.CreatedBy = "Admin";
-            category.ModifiedDate = DateTime.Now;
-            category.ModifiedBy = "Admin";
+            var category = formData.AllKeys
+               .Where(k => k.StartsWith("formData"))
+               .ToDictionary(k => k, k => formData[k]);
 
             return Json(new
             {
