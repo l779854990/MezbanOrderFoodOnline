@@ -54,13 +54,13 @@
             //formData.append('DiscriptionEn', $("#DiscriptionEn").val());
             //formData.append('SortOrder', $("#SortOrder").val());
             //formData.append('Status', $("#Status").val());
-            let formData = $('#categoryFormAdd').serializeObject();
+            let fc = $('#categoryFormAdd').serializeObject();
             $.ajax({
                 type: 'POST',
                 url: "/Admin/Category/Add",
                 data: {
                     __RequestVerificationToken: window.getToken(),
-                    formData
+                    fc
                 },
                 dataType: 'json',
                 success: function (data) {

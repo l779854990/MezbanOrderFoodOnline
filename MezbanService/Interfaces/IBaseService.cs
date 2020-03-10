@@ -6,6 +6,20 @@ namespace MezbanService.Interfaces
 {
     public interface IBaseService<T> : IService where T : class
     {
+        T GetById(long id);
+
+        /// <summary>
+        /// Get All list Object
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<T> GetAll();
+
+        /// <summary>
+        /// Function use to Update Object 
+        /// </summary>
+        /// <param name="entity">Object is targer Update</param>
+        /// <returns></returns>
+        T Update(T entity);
         /// <summary>
         /// Function use to Insert Object 
         /// </summary>

@@ -12,6 +12,8 @@
         public class StringMessage
         {
             public const string AddSuccess = "{0} is created successfuly!";
+            public const string NameViIsEmpty = "Name is Empty!";
+            public const string DescriptionViIsEmpty = "Name is Empty!";
         }
 
         public class TableName
