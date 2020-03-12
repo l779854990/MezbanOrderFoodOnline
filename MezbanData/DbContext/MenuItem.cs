@@ -22,7 +22,7 @@ namespace MezbanData.DbContext
     
         public System.Guid MenuItemId { get; set; }
         public string Code { get; set; }
-        public long CondefinitionId { get; set; }
+        public long ContentDefinitionId { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<bool> HasCombo { get; set; }
@@ -34,7 +34,7 @@ namespace MezbanData.DbContext
         public System.Guid MenuId { get; set; }
         public long SeqId { get; set; }
     
-        public virtual Contentdefinition Contentdefinition { get; set; }
+        public virtual ContentDefinition ContentDefinition { get; set; }
         public virtual Menu Menu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Option> Options { get; set; }

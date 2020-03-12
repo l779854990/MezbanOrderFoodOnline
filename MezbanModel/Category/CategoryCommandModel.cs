@@ -10,7 +10,7 @@ namespace MezbanModel.Category
         public string Code { get; set; }
         public int SortOrder { get; set; }
         public IList<Language> Languages { get; set; }
-        public Contentdefinition ContentDefinition { get; set; }
+        public ContentDefinition ContentDefinition { get; set; }
         public bool Status { get; set; }
     }
 }

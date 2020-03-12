@@ -50,3 +50,32 @@
 .hidden {
     display : none;
 }
+.loading-bar {
+    background-color: #d2d6de;
+    height: 3px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10000;
+}
+
+    .loading-bar .bar {
+        background: -webkit-gradient( linear, left top, right top, color-stop(0%, #007bff), color-stop(100%, #007bff) );
+        height: 3px;
+        width: 0%;
+    }
+
+    .loading-bar .animating {
+        -webkit-animation: progress 2s infinite linear;
+    }
+
+@-webkit-keyframes progress {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}

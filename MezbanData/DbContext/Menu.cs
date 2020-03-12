@@ -21,7 +21,7 @@ namespace MezbanData.DbContext
         }
     
         public System.Guid MenuId { get; set; }
-        public long ContentdefinitionId { get; set; }
+        public long ContentDefinitionId { get; set; }
         public Nullable<decimal> Price { get; set; }
         public System.Guid RestaurantId { get; set; }
         public string Code { get; set; }
@@ -35,7 +35,7 @@ namespace MezbanData.DbContext
         public string ModifiedBy { get; set; }
         public long SeqId { get; set; }
     
-        public virtual Contentdefinition Contentdefinition { get; set; }
+        public virtual ContentDefinition ContentDefinition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MenuItem> MenuItems { get; set; }
         public virtual Restaurant Restaurant { get; set; }

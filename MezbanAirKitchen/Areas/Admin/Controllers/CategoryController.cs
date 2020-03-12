@@ -78,12 +78,23 @@ namespace MezbanAirKitchen.Areas.Admin.Controllers
                 model.Code = fc["fc[Code]"];
                 model.SortOrder = Convert.ToInt32(fc["fc[SortOrder]"]);
                 model.Status = fc["fc[Status]"].ToUpper().Equals("TRUE");
-                Category e = MapEntity(model, null);
             }
-            return Json(new
+            Category e = MapEntity(model, null);
+            e.CreatedBy = "Admin";
+            e.CreatedDate = DateTime.Now;
+            e.ModifiedBy = "Admin";
+            e.ModifiedDate = DateTime.Now;
+            var created = _categoryService.Create(model, e);
+            return created
+                ? Json(new
+                {
+                    Status = 1,
+                    Message = string.Format(Contanst.StringMessage.AddSuccess, "The Category ")
+                })
+                : Json(new
             {
                 Status = 1,
-                Message = string.Format(Contanst.StringMessage.AddSuccess, "The Category ")
+                Message = string.Format("Lỗi trong quá trình xử lý dữ liệu.Vui lòng liên hệ Admin.")
             });
         }
         public ActionResult Edit()

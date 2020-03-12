@@ -2,7 +2,7 @@
 
 namespace MezbanInfrastructure.Repository.Interfaces
 {
-    public interface IContentDefinitionRepository : IBaseRepository<Contentdefinition>
+    public interface IContentDefinitionRepository : IBaseRepository<ContentDefinition>
     {
     }
 }

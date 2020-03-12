@@ -22,7 +22,7 @@ namespace MezbanData.DbContext
     
         public System.Guid CategoryId { get; set; }
         public long SeqId { get; set; }
-        public long ContendifinitonId { get; set; }
+        public long ContentDifinitonId { get; set; }
         public string Code { get; set; }
         public bool Status { get; set; }
         public int SortOder { get; set; }
@@ -31,8 +31,8 @@ namespace MezbanData.DbContext
         public string ModifiedBy { get; set; }
         public System.DateTime ModifiedDate { get; set; }
     
+        public virtual ContentDefinition ContentDefinition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantCategory> RestaurantCategories { get; set; }
-        public virtual Contentdefinition Contentdefinition { get; set; }
     }
 }

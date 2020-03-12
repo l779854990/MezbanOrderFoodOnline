@@ -32,7 +32,7 @@ namespace MezbanData.DbContext
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<Contentdefinition> Contentdefinitions { get; set; }
+        public virtual DbSet<ContentDefinition> ContentDefinitions { get; set; }
         public virtual DbSet<ContentEntry> ContentEntries { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<District> Districts { get; set; }
@@ -53,12 +53,11 @@ namespace MezbanData.DbContext
         public virtual DbSet<RestaurantCategory> RestaurantCategories { get; set; }
         public virtual DbSet<Restaurant> Restaurants { get; set; }
         public virtual DbSet<RestaurantWorkTime> RestaurantWorkTimes { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tax> Taxes { get; set; }
+        public virtual DbSet<TypeOfCuisine> TypeOfCuisines { get; set; }
         public virtual DbSet<UserRestaurant> UserRestaurants { get; set; }
         public virtual DbSet<Voucher> Vouchers { get; set; }
         public virtual DbSet<VoucherLineItem> VoucherLineItems { get; set; }
         public virtual DbSet<Zone> Zones { get; set; }
-        public virtual DbSet<TypeOfCuisine> TypeOfCuisines { get; set; }
     }
 }

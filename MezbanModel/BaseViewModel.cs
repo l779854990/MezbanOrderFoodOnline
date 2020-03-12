@@ -15,7 +15,7 @@ namespace MezbanModel
     }
     public class LanguageVm
     {
-        public long LanguageId { get; set; }
+        public int LanguageId { get; set; }
         public string Value { get; set; }
         public string Token { get; set; }
     }

@@ -20,11 +20,15 @@
     <link rel="stylesheet" href="/Assets/backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <link href="~/Assets/backend/plugins/datatables-checkbox/css/dataTables.checkboxes.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="~/Assets/backend/plugins/toastr/toastr.min.css" rel="stylesheet" />
     @RenderSection("Styles", false)
     <script src="/Assets/backend/plugins/jquery/jquery.min.js"></script>
     <script src="~/Scripts/jquery-3.3.1.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
+    <div id="loadingBar" class="loading-bar" style="display: none;">
+        <div id="bar" class="bar animating"></div>
+    </div>
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand nav-blue navbar-light">
             <ul class="navbar-nav">
@@ -69,6 +73,7 @@
     <script src="/Assets/backend/plugins/datatables/jquery.dataTables.js"></script>
     <script src="/Assets/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <!-- AdminLTE for demo purposes -->
+    <script src="~/Assets/backend/plugins/toastr/toastr.min.js"></script>
     <script src="~/Assets/backend/plugins/datatables-checkbox/js/dataTables.checkboxes.min.js"></script>
     <script src="~/Assets/backend/plugins/datatables-checkbox/js/dataTables.checkboxes.js"></script>
     @RenderSection("scripts", required: false)

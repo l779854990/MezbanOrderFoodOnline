@@ -15,7 +15,7 @@ namespace MezbanData.DbContext
     public partial class Option
     {
         public System.Guid OptionId { get; set; }
-        public long ContendifinitonId { get; set; }
+        public long ContentDifinitonId { get; set; }
         public string Code { get; set; }
         public System.Guid MenuItemId { get; set; }
         public Nullable<decimal> Price { get; set; }
@@ -24,7 +24,7 @@ namespace MezbanData.DbContext
         public System.DateTime ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
     
-        public virtual Contentdefinition Contentdefinition { get; set; }
+        public virtual ContentDefinition ContentDefinition { get; set; }
         public virtual MenuItem MenuItem { get; set; }
     }
 }

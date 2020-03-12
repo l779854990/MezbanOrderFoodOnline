@@ -18,9 +18,9 @@ namespace MezbanData.DbContext
         public string Value { get; set; }
         public string Token { get; set; }
         public int LanguageId { get; set; }
-        public long ContendefinitionId { get; set; }
+        public long ContentDefinitionId { get; set; }
     
-        public virtual Contentdefinition Contentdefinition { get; set; }
+        public virtual ContentDefinition ContentDefinition { get; set; }
         public virtual Language Language { get; set; }
     }
 }

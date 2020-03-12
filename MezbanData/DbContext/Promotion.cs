@@ -23,7 +23,7 @@ namespace MezbanData.DbContext
         public System.Guid PromotionId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public long ContentdifinitionId { get; set; }
+        public long ContentDifinitionId { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public Nullable<int> Value { get; set; }
@@ -34,7 +34,7 @@ namespace MezbanData.DbContext
         public string ModifiedBy { get; set; }
         public System.DateTime ModifiedDate { get; set; }
     
-        public virtual Contentdefinition Contentdefinition { get; set; }
+        public virtual ContentDefinition ContentDefinition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PromotionLineItem> PromotionLineItems { get; set; }
     }

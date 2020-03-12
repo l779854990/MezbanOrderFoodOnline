@@ -14,6 +14,12 @@ namespace MezbanData.DbContext
     
     public partial class Person
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Person()
+        {
+            this.AspNetUsers = new HashSet<AspNetUser>();
+        }
+    
         public System.Guid PersonId { get; set; }
         public int SeqId { get; set; }
         public string Title { get; set; }
@@ -27,5 +33,8 @@ namespace MezbanData.DbContext
         public string PhoneNumber { get; set; }
         public string PhotoUrl { get; set; }
         public string Address { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

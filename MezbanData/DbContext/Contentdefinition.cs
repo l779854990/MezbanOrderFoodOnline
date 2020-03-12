@@ -12,10 +12,10 @@ namespace MezbanData.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class Contentdefinition
+    public partial class ContentDefinition
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Contentdefinition()
+        public ContentDefinition()
         {
             this.Categories = new HashSet<Category>();
             this.MenuItems = new HashSet<MenuItem>();
@@ -25,7 +25,7 @@ namespace MezbanData.DbContext
             this.Promotions = new HashSet<Promotion>();
         }
     
-        public long ContentdefinitionId { get; set; }
+        public long ContentDefinitionId { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
