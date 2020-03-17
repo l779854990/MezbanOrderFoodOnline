@@ -23,18 +23,31 @@ namespace MezbanAirKitchen.Areas.Admin.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            var categories = _categoryService.List();
+            var categoryViewModel = categories.Select(x => new CategoryViewModel{
+                CategoryId = x.CategoryId,
+                Code = x.Code,
+                ContentDefinition = x.ContentDefinition,
+                SortOrder = x.SortOder,
+                CreatedDate = x.CreatedDate,
+                CreatedBy = x.CreatedBy,
+                ModifiedBy = x.ModifiedBy,
+                ModifiedDate = x.ModifiedDate,
+            });
+            var lang = _languageService.List();
+            ViewBag.Languages = lang;
+            return View(categoryViewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(CategoryCommandModel model, FormCollection fc)
+        public ActionResult Add(CategoryViewModel model, FormCollection fc)
         {
             var isOk = true;
             var names = fc.AllKeys
                 .Where(x => x.StartsWith("fc[Name_"))
                 .ToDictionary(k => k.Replace("fc[", "").Replace("]", ""), k => fc[k]);
             var discripitons = fc.AllKeys
-                .Where(x => x.StartsWith("fc[Discription_"))
+                .Where(x => x.StartsWith("fc[Description_"))
                 .ToDictionary(k => k.Replace("fc[", "").Replace("]", ""), k => fc[k]);
             if (!names.Any() && string.IsNullOrWhiteSpace(names["Name_Vi"]) || string.IsNullOrWhiteSpace(names["Name_En"]))
             {
@@ -44,7 +57,7 @@ namespace MezbanAirKitchen.Areas.Admin.Controllers
                     Message = Contanst.StringMessage.NameViIsEmpty
                 });
             }
-            if (!discripitons.Any() && string.IsNullOrWhiteSpace(discripitons["Discription_Vi"]) || string.IsNullOrWhiteSpace(discripitons["Discription_En"]))
+            if (!discripitons.Any() && string.IsNullOrWhiteSpace(discripitons["Description_Vi"]) || string.IsNullOrWhiteSpace(discripitons["Description_En"]))
             {
                 return Json(new
                 {
@@ -69,8 +82,8 @@ namespace MezbanAirKitchen.Areas.Admin.Controllers
                     model.LanguageVms.Add(new LanguageVm()
                     {
                         LanguageId = item.Id,
-                        Value = discripitons.ContainsKey($"{"Name_"}{item.Code}")
-                            ? discripitons[$"{"Name_"}{item.Code}"]
+                        Value = discripitons.ContainsKey($"{"Description_"}{item.Code}")
+                            ? discripitons[$"{"Description_"}{item.Code}"]
                             : string.Empty,
                         Token = "CategoryDescription"
                     });
@@ -80,6 +93,7 @@ namespace MezbanAirKitchen.Areas.Admin.Controllers
                 model.Status = fc["fc[Status]"].ToUpper().Equals("TRUE");
             }
             Category e = MapEntity(model, null);
+
             e.CreatedBy = "Admin";
             e.CreatedDate = DateTime.Now;
             e.ModifiedBy = "Admin";
@@ -104,12 +118,13 @@ namespace MezbanAirKitchen.Areas.Admin.Controllers
 
         #region private
 
-        private static Category MapEntity(CategoryCommandModel model, Category entity)
+        private static Category MapEntity(CategoryViewModel model, Category entity)
         {
             if (entity == null)
             {
                 return new Category
                 {
+                    CategoryId = Guid.NewGuid(),
                     Code = model.Code,
                     Status = model.Status,
                     SortOder = model.SortOrder,

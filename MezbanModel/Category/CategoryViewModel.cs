@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MezbanModel.Category
 {
-    public class CategoryCommandModel : BaseViewModel
+    public class CategoryViewModel : BaseViewModel
     {
         public Guid CategoryId { get; set; }
         public string Code { get; set; }

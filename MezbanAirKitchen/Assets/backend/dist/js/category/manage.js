@@ -46,15 +46,16 @@
     };
     $("#saveCategory").on("click",
         function () {
-            //let formData = new FormData();
-            //formData.append('Code', $("#Code").val());
-            //formData.append('NameVi', $("#NameVi").val());
-            //formData.append('DiscriptionVi', $("#DiscriptionVi").val());
-            //formData.append('NameEn', $("#NameEn").val());
-            //formData.append('DiscriptionEn', $("#DiscriptionEn").val());
-            //formData.append('SortOrder', $("#SortOrder").val());
-            //formData.append('Status', $("#Status").val());
+            let formData = new FormData();
+            formData.append('Code', $("#Code").val());
+            formData.append('NameVi', $("#NameVi").val());
+            formData.append('DescriptionVi', $("#DescriptionVi").val());
+            formData.append('NameEn', $("#NameEn").val());
+            formData.append('DescriptionEn', $("#DescriptionEn").val());
+            formData.append('SortOrder', $("#SortOrder").val());
+            formData.append('Status', $("#Status").val());
             let fc = $('#categoryFormAdd').serializeObject();
+            $("#loadingBar").show();
             $.ajax({
                 type: 'POST',
                 url: "/Admin/Category/Add",
@@ -64,12 +65,19 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data.result == "Error") {
-                        alert(data.message);
+                    if (data.Status === 1) {
+                        $("#loadingBar").hide();
+                        toastr.success(data.Message);
+                        setTimeout(() => window.location.reload(), 500);
+                    } else {
+                        $("#loadingBar").hide();
+                        toastr.error(data.Message);
+                        setTimeout(() => window.location.reload(), 500);
                     }
                 }
             });
 
+
         });
-   
+
 });

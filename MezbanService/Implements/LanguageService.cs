@@ -1,5 +1,6 @@
 ﻿using MezbanData.DbContext;
 using MezbanInfrastructure.Repository;
+using MezbanInfrastructure.Repository.Interfaces;
 using MezbanService.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,15 @@ namespace MezbanService.Implements
 {
     public class LanguageService : BaseService<Language>, ILanguageService
     {
-        public LanguageService(IUnitOfWork unitOfWork, IBaseRepository<Language> repository) : base(unitOfWork, repository)
+        private readonly ILanguageRepository _languageRepository;
+        public LanguageService(ILanguageRepository languageRepository,IUnitOfWork unitOfWork, IBaseRepository<Language> repository) : base(unitOfWork, repository)
         {
+            _languageRepository = languageRepository;
+        }
+
+        public IList<Language> List()
+        {
+            return _languageRepository.GetAll().ToList();
         }
     }
 }

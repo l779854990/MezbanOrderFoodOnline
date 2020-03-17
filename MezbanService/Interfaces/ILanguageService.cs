@@ -7,6 +7,6 @@ namespace MezbanService.Interfaces
 {
     public interface ILanguageService : IBaseService<Language>
     {
-        
+        IList<Language> List();
     }
 }

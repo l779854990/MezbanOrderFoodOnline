@@ -1,4 +1,14 @@
-﻿
+﻿@using MezbanData.DbContext
+@using MezbanModel.Category
+
+@model  IList<CategoryViewModel>
+@{
+    var langs = new List<Language>();
+    if (ViewBag.Languages != null)
+    {
+        langs = ViewBag.Languages as List<Language>;
+    }
+}
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
@@ -73,64 +83,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="categoryTable" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th class="checkbox-primary"></th>
-                                <th>Code</th>
-                                <th>Tilte</th>
-                                <th>Miêu Tả</th>
-                                <th>Trạng Thái</th>
-                                <th>Option</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td>Rendering engine</td>
-                                <td>Browser</td>
-                                <td>Platform(s)</td>
-                                <td><span class="badge p-2 badge-success">Active</span></td>
-                                <td class="text-center">
-                                    <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Rendering engine</td>
-                                <td>Browser</td>
-                                <td>Platform(s)</td>
-                                <td><span class="badge p-2 badge-success">Active</span></td>
-                                <td class="text-center">
-                                    <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Rendering engine</td>
-                                <td>Browser</td>
-                                <td>Platform(s)</td>
-                                <td><span class="badge p-2 badge-success">Active</span></td>
-                                <td class="text-center">
-                                    <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Rendering engine</td>
-                                <td>Browser</td>
-                                <td>Platform(s)</td>
-                                <td><span class="badge p-2 badge-success">Active</span></td>
-                                <td class="text-center">
-                                    <a href="" class="btn custom-btn custom-edit btn-circle btn-masterial" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn custom-btn ml-3 custom-delete btn-circle btn-masterial" data-toggle="modal" data-target="#modal-delete"><i class="far fa-trash-alt"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    @{ Html.RenderPartial("_Gird", new ViewDataDictionary() { { "languages", langs }, { "Model", Model } }); }
                 </div>
                 <!-- /.card-body -->
             </div>

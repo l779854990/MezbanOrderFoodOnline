@@ -5,6 +5,8 @@ using System;
 using MezbanCommon.Heplers;
 using MezbanInfrastructure.Repository.Interfaces;
 using MezbanModel.Category;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MezbanService.Implements
 {
@@ -20,7 +22,7 @@ namespace MezbanService.Implements
             _contentDefinitionRepository = contentDefinitionRepository;
         }
 
-        public bool Create(CategoryCommandModel vm, Category e)
+        public bool Create(CategoryViewModel vm, Category e)
         {
             using (var DbTransaction = _unitOfWork.BeginTransaction())
             {
@@ -53,6 +55,11 @@ namespace MezbanService.Implements
                     return false;
                 }
             }
+        }
+
+        public IList<Category> List()
+        {
+            return _categoryRepository.GetAll().ToList();
         }
     }
 }

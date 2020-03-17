@@ -242,6 +242,7 @@
     <Content Include="Assets\backend\dist\css\admin\tab-bootstap.css" />
     <Content Include="Assets\backend\dist\css\admin\tagsinput.css" />
     <Content Include="Assets\backend\dist\js\comment\manage.js" />
+    <Content Include="Assets\backend\dist\js\commonjs.js" />
     <Content Include="Assets\backend\dist\js\cuisine\manage.js" />
     <Content Include="Assets\backend\dist\js\email\manage.js" />
     <Content Include="Assets\backend\dist\js\promotion\manage.js" />
@@ -2011,6 +2012,7 @@
     <Content Include="Areas\Admin\Views\User\Info.cshtml" />
     <Content Include="Areas\Admin\Views\Restaurant\Setting.cshtml" />
     <Content Include="Areas\Admin\Views\Category\_FormTabel.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\_Gird.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
